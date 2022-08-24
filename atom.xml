@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Moushuai&#39;s blog</title>
+  
+  <subtitle>Moushuai&#39;s blog</subtitle>
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2022-08-24T02:36:04.160Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>Mou shuai</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>锂电池保养手册</title>
+    <link href="http://example.com/2022/08/23/li-dian-chi-bao-yang-shou-ce/"/>
+    <id>http://example.com/2022/08/23/li-dian-chi-bao-yang-shou-ce/</id>
+    <published>2022-08-23T12:05:07.000Z</published>
+    <updated>2022-08-24T02:36:04.160Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;为什么有的人电池用了半年还有 &lt;strong&gt;100%&lt;/strong&gt;，而有的人就剩下
+&lt;strong&gt;90%&lt;/strong&gt; 了呢？&lt;/p&gt;
+&lt;h2 id=&quot;原则&quot;&gt;原则&lt;/h2&gt;
+&lt;p&gt;电池充电可以比喻成人吃饭，尽量少吃多餐&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="数码" scheme="http://example.com/tags/%E6%95%B0%E7%A0%81/"/>
+    
+    <category term="日常" scheme="http://example.com/tags/%E6%97%A5%E5%B8%B8/"/>
+    
+  </entry>
+  
+</feed>
