@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-08-24T02:36:04.160Z</updated>
+  <updated>2022-08-24T07:40:52.689Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>递归 vs 迭代</title>
+    <link href="http://example.com/2022/08/24/di-gui-vs-die-dai/"/>
+    <id>http://example.com/2022/08/24/di-gui-vs-die-dai/</id>
+    <published>2022-08-24T07:04:36.115Z</published>
+    <updated>2022-08-24T07:40:52.689Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;首先提出两个问题&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;所有递归都可以改写成循环吗？&lt;/li&gt;
+&lt;li&gt;改写后会有什么好处？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;接下来我们仔细分析下具体的区别&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>锂电池保养手册</title>
