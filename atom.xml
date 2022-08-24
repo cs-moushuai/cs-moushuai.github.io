@@ -3,11 +3,11 @@
   <title>Moushuai</title>
   
   <subtitle>Moushuai&#39;s blog</subtitle>
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="https://cs-moushuai.github.io/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
+  <link href="https://cs-moushuai.github.io/"/>
   <updated>2022-08-24T07:40:52.689Z</updated>
-  <id>http://example.com/</id>
+  <id>https://cs-moushuai.github.io/</id>
   
   <author>
     <name>Mou shuai</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>递归 vs 迭代</title>
-    <link href="http://example.com/2022/08/24/di-gui-vs-die-dai/"/>
-    <id>http://example.com/2022/08/24/di-gui-vs-die-dai/</id>
+    <link href="https://cs-moushuai.github.io/2022/08/24/di-gui-vs-die-dai/"/>
+    <id>https://cs-moushuai.github.io/2022/08/24/di-gui-vs-die-dai/</id>
     <published>2022-08-24T07:04:36.115Z</published>
     <updated>2022-08-24T07:40:52.689Z</updated>
     
@@ -41,14 +41,14 @@
     
     
     
-    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="算法" scheme="https://cs-moushuai.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
   <entry>
     <title>锂电池保养手册</title>
-    <link href="http://example.com/2022/08/23/li-dian-chi-bao-yang-shou-ce/"/>
-    <id>http://example.com/2022/08/23/li-dian-chi-bao-yang-shou-ce/</id>
+    <link href="https://cs-moushuai.github.io/2022/08/23/li-dian-chi-bao-yang-shou-ce/"/>
+    <id>https://cs-moushuai.github.io/2022/08/23/li-dian-chi-bao-yang-shou-ce/</id>
     <published>2022-08-23T12:05:07.000Z</published>
     <updated>2022-08-24T02:36:04.160Z</updated>
     
@@ -68,9 +68,9 @@
     
     
     
-    <category term="数码" scheme="http://example.com/tags/%E6%95%B0%E7%A0%81/"/>
+    <category term="数码" scheme="https://cs-moushuai.github.io/tags/%E6%95%B0%E7%A0%81/"/>
     
-    <category term="日常" scheme="http://example.com/tags/%E6%97%A5%E5%B8%B8/"/>
+    <category term="日常" scheme="https://cs-moushuai.github.io/tags/%E6%97%A5%E5%B8%B8/"/>
     
   </entry>
   
