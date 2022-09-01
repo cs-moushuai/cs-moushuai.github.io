@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://cs-moushuai.github.io/2022/09/01/qian-tan-i-o-duo-lu-fu-yong/</loc>
+    <loc>https://cs-moushuai.github.io/2022/09/01/qian-tan-wang-luo-i-o/</loc>
     
     <lastmod>2022-09-01</lastmod>
     
@@ -101,7 +101,7 @@
 
   
   <url>
-    <loc>https://cs-moushuai.github.io/tags/C/</loc>
+    <loc>https://cs-moushuai.github.io/tags/%E7%BD%91%E7%BB%9C/</loc>
     <lastmod>2022-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -115,7 +115,7 @@
   </url>
   
   <url>
-    <loc>https://cs-moushuai.github.io/tags/%E7%BD%91%E7%BB%9C/</loc>
+    <loc>https://cs-moushuai.github.io/tags/C/</loc>
     <lastmod>2022-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
