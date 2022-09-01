@@ -4,19 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="递归 vs 迭代, Moushuai">
-    <meta name="description" content="首先提出两个问题
+    <meta name="keywords" content="浅谈 I/O 多路复用, Moushuai">
+    <meta name="description" content="面试问到网络或者 Redis 时常考题
+基本概念
+Socket
+套接字，用于网络中不同主机上应用程序间双向通信的端点的抽象，他将复杂的
+TCP/IP 隐藏在 Socket 接口后面
 
-所有递归都可以改写成循环吗？
-改写后会有什么好处？
-
-接下来我们仔细分析下具体的区别
-递归转换为迭代的方法
-对于递归而言有两种转换方式
-一、直接转换法
-方法：使用变量保存中间结果
-计算阶乘：
-long fact(int ">
+Socket 地址 = IP 地址:端口号
+不同的协议，">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -39,7 +35,7 @@ long fact(int ">
 </script>
 
 
-    <title>递归 vs 迭代 | Moushuai</title>
+    <title>浅谈 I/O 多路复用 | Moushuai</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -294,12 +290,12 @@ long fact(int ">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">递归 vs 迭代</h1>
+                    <h1 class="description center-align post-title">浅谈 I/O 多路复用</h1>
                 </div>
             </div>
         </div>
@@ -323,8 +319,8 @@ long fact(int ">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
-                                <span class="chip bg-color">数据结构与算法</span>
+                            <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                                <span class="chip bg-color">网络</span>
                             </a>
                         
                     </div>
@@ -339,28 +335,28 @@ long fact(int ">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-08-24
+                    2022-09-01
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-08-26
+                    2022-09-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    615
+                    1.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    5 分
                 </div>
                 
 
@@ -383,94 +379,160 @@ long fact(int ">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>首先提出两个问题</p>
+                <p>面试问到网络或者 Redis 时常考题</p>
+<h2 id="基本概念">基本概念</h2>
+<h3 id="socket">Socket</h3>
+<p>套接字，用于网络中不同主机上应用程序间双向通信的端点的抽象，他将复杂的
+TCP/IP 隐藏在 Socket 接口后面</p>
 <ul>
-<li>所有递归都可以改写成循环吗？</li>
-<li>改写后会有什么好处？</li>
+<li>Socket 地址 = IP 地址:端口号</li>
+<li>不同的协议，如 TCP，UDP 可同时使用相同端口号</li>
 </ul>
-<p>接下来我们仔细分析下具体的区别</p>
-<h2 id="递归转换为迭代的方法">递归转换为迭代的方法</h2>
-<p>对于递归而言有两种转换方式</p>
-<h3 id="一直接转换法">一、直接转换法</h3>
-<p><strong>方法</strong>：使用变量保存中间结果</p>
-<p>计算阶乘：</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">long</span> <span class="token function">fact</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-　　<span class="token keyword">if</span> <span class="token punctuation">(</span>n<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
-　　<span class="token keyword">else</span> <span class="token keyword">return</span> n<span class="token operator">*</span><span class="token function">fact</span><span class="token punctuation">(</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">long</span> <span class="token function">fact</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-　　<span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-　　<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
-　      res <span class="token operator">*=</span> i<span class="token punctuation">;</span>
-　　<span class="token keyword">return</span> res<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>可以看到，时间复杂度依旧为 <span
-class="math inline">\(\mathcal{O}(n)\)</span>，但空间复杂度已经从 <span
-class="math inline">\(\mathcal{O}(n) \to \mathcal{O}(1)\)</span>
-了，因为原本需要调用 <code>fact(...)</code> <span
-class="math inline">\(n\)</span> 次，但现在只需要 <span
-class="math inline">\(1\)</span> 次了</p>
-<h3 id="二间接转换法">二、间接转换法</h3>
-<p><strong>方法</strong>：使用栈保存中间结果</p>
-<p>树的先序遍历：</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">/**
- * Definition for a binary tree node.
- * struct TreeNode &#123;
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;
- * &#125;;
- */</span>
-<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">&#123;</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-    <span class="token keyword">void</span> <span class="token function">travel</span><span class="token punctuation">(</span>TreeNode <span class="token operator">*</span>root<span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>root <span class="token operator">==</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span>
-        <span class="token punctuation">&#123;</span>
-            <span class="token keyword">return</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        res<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>root<span class="token operator">-></span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">travel</span><span class="token punctuation">(</span>root<span class="token operator">-></span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">travel</span><span class="token punctuation">(</span>root<span class="token operator">-></span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">preorderTraversal</span><span class="token punctuation">(</span>TreeNode<span class="token operator">*</span> root<span class="token punctuation">)</span> 
-    <span class="token punctuation">&#123;</span>
-        <span class="token function">travel</span><span class="token punctuation">(</span>root<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token keyword">private</span><span class="token operator">:</span>
-    vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> res<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">&#123;</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-    vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">preorderTraversal</span><span class="token punctuation">(</span>TreeNode<span class="token operator">*</span> root<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> ans<span class="token punctuation">;</span>
-        stack<span class="token operator">&lt;</span>TreeNode<span class="token operator">*</span><span class="token operator">></span> st<span class="token punctuation">;</span>
-        TreeNode <span class="token operator">*</span>p<span class="token operator">=</span>root<span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>st<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">||</span> p<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">while</span> <span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                ans<span class="token punctuation">.</span><span class="token function">emplace_back</span><span class="token punctuation">(</span>p<span class="token operator">-></span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                st<span class="token punctuation">.</span><span class="token function">emplace</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                p <span class="token operator">=</span> p<span class="token operator">-></span>left<span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-            p <span class="token operator">=</span> st<span class="token punctuation">.</span><span class="token function">top</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            st<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            p <span class="token operator">=</span> p<span class="token operator">-></span>right<span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>但此处的时间和空间复杂度却都没有变化，因为用栈来保存结果，本质就是在模拟函数调用的过程，并没有什么好处，但编写代码的难度却大大提高</p>
-<p>所以，回答下开头的问题</p>
-<h2 id="所有递归都可以改写成循环吗">所有递归都可以改写成循环吗？</h2>
-<p>是的，所有递归都使用直接或间接的方式转换</p>
-<h2 id="改写后会有什么好处">改写后会有什么好处？</h2>
-<p>使用直接转换可以避免空间上的开销，使用间接转换本质在模拟函数调用没有意义</p>
+<p><img src="1.jpeg" alt="什么是 Socket" /></p>
+<p><img src="2.jpeg" alt="Socket 通信流程" /></p>
+<p>对具体使用感兴趣的可以做下这个实验 <a
+target="_blank" rel="noopener" href="https://gaia.cs.umass.edu/kurose_ross/programming.php">计算机网络自顶向下
+Lab</a>，很有意思</p>
+<h3 id="fdfile-descriptor">FD(File Descriptor)</h3>
+<p>文件描述符，为非负整数，Linux
+中一切资源都可以通过文件来访问和管理，FD 用于指向某一资源</p>
+<h3 id="阻塞与非阻塞">阻塞与非阻塞</h3>
+<p>阻塞与非阻塞，描述调用者在等待返回结果的过程</p>
+<ul>
+<li>阻塞：调用者发送请求后，会一直等待返回结果，当前线程被阻塞</li>
+<li>非阻塞：调用者发送请求后，会立刻返回，当前线程不会阻塞，但调用需要定期轮询（一个个看）查看处理结果</li>
+</ul>
+<p>例子：</p>
+<p>阻塞/非阻塞：我在等你干活的时候我在干啥？</p>
+<ul>
+<li>阻塞：啥也不干，死等</li>
+<li>非阻塞：可以干别的，但也要时不时问问你的进度</li>
+</ul>
+<h3 id="同步与异步">同步与异步</h3>
+<p>而同步与异步，用于描述调用结果的返回机制（或者叫通信机制）。</p>
+<ul>
+<li>同步：调用者发起请求后，会一直等待返回结果，即由调用者主动等待这个调用结果。</li>
+<li>异步：调用者发起请求后，会立刻返回，但不会立刻得到这个结果，而是由被调者在执行结束后主动通知（如
+Callback）调用者。</li>
+</ul>
+<p>例子：</p>
+<p>同步/异步：你干完了，怎么让我知道呢？</p>
+<ul>
+<li>同步：我只要不问，你就不告诉我</li>
+<li>异步：你干完了，直接喊我过来就行</li>
+</ul>
+<p>以上的IO可以组合成4种组合方式：同步阻塞，同步非阻塞，异步阻塞，异步非阻塞</p>
+<h3 id="用户态和内核态">用户态和内核态</h3>
+<p>两种不同的权限等级</p>
+<h4 id="用户态">用户态</h4>
+<p>只能执行系统规定的指令，当需要执行某些系统特权指令（系统调用）时，需要切换到内核态
+<img src="8.png" alt="系统调用位置" /></p>
+<h4 id="内核态">内核态</h4>
+<p>能够执行特权指令，如：IO，内存分配等对硬件操作的指令</p>
+<h2 id="五种-io-模型">五种 I/O 模型</h2>
+<p><img src="9.png" alt="五种 I/O 模型" /></p>
+<h3 id="阻塞-io">阻塞 I/O</h3>
+<p>优点：程序简单，线程挂起不会占用 CPU 资源<br />
+缺点：在高并发场景下，需要大量线程，那内存，线程切换开销是不可接受的<br />
+总之：不常用</p>
+<h3 id="非阻塞-io">非阻塞 I/O</h3>
+<p>优点：线程立刻返回，可以干别的活<br />
+缺点：不断轮询效率低，数据到达和轮询有时间差，所以响应延迟高<br />
+总之：不常用，最多使用非阻塞 I/O 的特性</p>
+<h3 id="io-多路复用">I/O 多路复用</h3>
+<p>Redis 作为一个单线程的数据库，使用的就是 I/O 多路复用</p>
+<blockquote>
+<p><strong>Redis 快的原因？</strong></p>
+<ol type="1">
+<li>基于内存操作<br />
+</li>
+<li>数据结构简单<br />
+</li>
+<li>I/O 多路复用<br />
+</li>
+<li>主线程为单线程，避免上下文切换</li>
+</ol>
+</blockquote>
+<p>unix 的 select()，poll()，linux 的 epoll()
+系列都是同步非阻塞，windows 的 IOCP 是异步非阻塞</p>
+<p><img src="3.png" alt="三种多路复用区别" /> 优点：一个线程复用多个
+Socket，避免了多线程创建，切换，销毁的开销</p>
+<h4 id="select">select</h4>
+<p><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/select.2.html">API
+文档</a> <img src="4.png" alt="select" /></p>
+<p>优点：解决了线程切换的问题<br />
+缺点：</p>
+<ul>
+<li>FD 最大默认为 1024</li>
+<li>每次调用需要将 FD 从用户态拷贝到内核态</li>
+<li>不知道哪个 FD 就绪，需要全部遍历</li>
+<li>参数每次调用都要重置（因为 <code>readfds, writefds, exceptfds</code>
+要作为返回值）</li>
+</ul>
+<h4 id="poll">poll</h4>
+<p><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/poll.2.html">API
+文档</a> <img src="5.png" alt="poll" /></p>
+<p>优点：解决了线程切换的问题<br />
+缺点：</p>
+<ul>
+<li><del>FD 最大默认为 1024</del></li>
+<li>每次调用需要将 FD 从用户态拷贝到内核态</li>
+<li>不知道哪个 FD 就绪，需要全部遍历</li>
+<li><del>参数每次调用都要重置（因为
+<code>readfds, writefds, exceptfds</code> 要作为返回值）</del></li>
+</ul>
+<h4 id="epoll">epoll</h4>
+<p><a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man7/epoll.7.html">API
+文档</a> <img src="6.png" alt="epoll-1" /> <img src="7.png"
+alt="epoll-2" /></p>
+<p>LT：Level-Triggered，水平触发（默认），<code>epoll_wait</code>
+检测到事件后，如该事件没有处理完毕，后续 <code>epoll_wait</code>
+都会返回该事件，更安全<br />
+ET：Edge-Triggered，边缘触发，<code>epoll_wait</code>
+检测到事件后，只会在当次返回，不管该事件是否被处理完毕，更快</p>
+<p>优点：解决了线程切换的问题<br />
+缺点：</p>
+<ul>
+<li><del>FD 最大默认为 1024</del></li>
+<li><del>每次调用需要将 FD 从用户态拷贝到内核态</del></li>
+<li><del>不知道哪个 FD 就绪，需要全部遍历</del></li>
+<li><del>参数每次调用都要重置（因为
+<code>readfds, writefds, exceptfds</code> 要作为返回值）</del></li>
+<li>跨平台不好，只支持 Linux</li>
+<li>相比较 select，epoll 太重了，遇到监听连接数和事件较少的场景，select
+可能更优</li>
+</ul>
+<h3 id="异步-io">异步 I/O</h3>
+<p>一般为非堵塞，除非刻意堵塞<br />
+应用进程执行 aio_read
+系统调用会立即返回，应用进程可以继续执行，不会被阻塞，内核会在所有操作完成之后向应用进程发送信号。</p>
+<h3 id="信号驱动-io">信号驱动 I/O</h3>
+<p>在信号驱动IO模型中，当用户线程发起一个IO请求操作，会给对应的socket注册一个信号函数，然后用户线程会继续执行，当内核数据就绪时会发送一个信号给用户线程，用户线程接收到信号之后，便在信号函数中调用IO读写操作来进行实际的IO请求操作。这个一般用于UDP中，对TCP套接口几乎是没用的，原因是该信号产生得过于频繁，并且该信号的出现并没有告诉我们发生了什么事情</p>
+<p>异步 I/O 与信号驱动 I/O 的区别在于，异步 I/O 的信号是通知应用进程 I/O
+完成，而信号驱动 I/O 的信号是通知应用进程可以开始 I/O。</p>
+<p><img src="10.png" alt="比较" /></p>
 <h2 id="总结">总结</h2>
-<p>虽然递归有着很大的空间开销，但很多时候我们是很难用迭代写出我们想要的程序，而且空间上的开销也不是很重要，相比较迭代的自底向上，递归的自顶向下往往更符合人类的逻辑，很多时候做动态规划的题目没有思路的时候，都可以考虑用自顶向下的记忆化搜索来完成</p>
+<p>本文介绍了 I/O 操作的基本概念，常见 I/O
+的五种模型，多路复用的三种方式</p>
+<p><strong>最后提几个问题供读者检验成果：</strong></p>
+<ol type="1">
+<li>阻塞和非阻塞有何区别，取决于什么？</li>
+<li>同步和异步有何区别？</li>
+<li>select，poll，epoll 有何区别？</li>
+<li>Redis 为什么快？</li>
+<li>同一个端口可以同时给 TCP 程序和 UDP 程序使用吗？</li>
+<li>I/O 五个模型分别是什么？</li>
+<li>socket 是什么，socket 地址是什么？</li>
+</ol>
+<h2 id="参考">参考</h2>
+<p><a target="_blank" rel="noopener" href="https://b23.tv/a9eq4SR">【小白也看得懂的 I/O
+多路复用解析（超详细案例）-哔哩哔哩】</a><br />
+<a
+target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000039898780#:~:text=IO%20%E6%A8%A1%E5%9E%8B%E6%98%AF%E6%8C%87%EF%BC%9A%E7%94%A8,%E6%A8%A1%E5%9E%8B%E5%92%8C%E5%BC%82%E6%AD%A5IO%20%E6%A8%A1%E5%9E%8B%E3%80%82">浅聊Linux的五种IO模型</a><br />
+<a
+target="_blank" rel="noopener" href="https://xmmarlowe.github.io/2021/06/28/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%94%A8%E6%88%B7%E6%80%81%E5%92%8C%E5%86%85%E6%A0%B8%E6%80%81/">用户态和内核态</a><br />
+<a
+target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000041488709#:~:text=%E6%89%80%E8%B0%93%E7%9A%84I%2FO%E5%A4%9A,%E6%97%A0%E9%9C%80%E9%98%BB%E5%A1%9E%E7%AD%89%E5%BE%85%E6%89%80%E6%9C%89%E8%BF%9E%E6%8E%A5%E3%80%82">深入理解redis——Redis快的原因和IO多路复用深度解析</a></p>
 
                 
             </div>
@@ -497,7 +559,7 @@ class="math inline">\(1\)</span> 次了</p>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://cs-moushuai.github.io/2022/08/24/di-gui-vs-die-dai/">https://cs-moushuai.github.io/2022/08/24/di-gui-vs-die-dai/</a>
+                    <a href="https://cs-moushuai.github.io/2022/09/01/qian-tan-i-o-duo-lu-fu-yong/">https://cs-moushuai.github.io/2022/09/01/qian-tan-i-o-duo-lu-fu-yong/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -535,8 +597,8 @@ class="math inline">\(1\)</span> 次了</p>
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
-                                    <span class="chip bg-color">数据结构与算法</span>
+                                <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                                    <span class="chip bg-color">网络</span>
                                 </a>
                             
                         </div>
@@ -614,7 +676,7 @@ class="math inline">\(1\)</span> 次了</p>
         repo: 'cs-moushuai.github.io',
         owner: 'cs-moushuai',
         admin: "cs-moushuai",
-        id: '2022-08-24T15-04-36',
+        id: '2022-09-01T14-51-49',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -644,9 +706,56 @@ class="math inline">\(1\)</span> 次了</p>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2022/09/01/qian-tan-i-o-duo-lu-fu-yong/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="浅谈 I/O 多路复用">
+                        
+                        <span class="card-title">浅谈 I/O 多路复用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Mou shuai
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">网络</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2022/08/25/c-shi-xian-gao-xing-neng-nei-cun-chi/">
                     <div class="card-image">
@@ -664,9 +773,9 @@ class="math inline">\(1\)</span> 次了</p>
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-25
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -684,55 +793,6 @@ class="math inline">\(1\)</span> 次了</p>
                     
                     <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
                         <span class="chip bg-color">数据结构与算法</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/08/23/li-dian-chi-bao-yang-shou-ce/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="锂电池保养手册">
-                        
-                        <span class="card-title">锂电池保养手册</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-23
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Mou shuai
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E6%95%B0%E7%A0%81/">
-                        <span class="chip bg-color">数码</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%97%A5%E5%B8%B8/">
-                        <span class="chip bg-color">日常</span>
                     </a>
                     
                 </div>
@@ -856,13 +916,6 @@ class="math inline">\(1\)</span> 次了</p>
 
 </main>
 
-
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-    });
-</script>
 
 
 
