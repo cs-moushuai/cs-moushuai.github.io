@@ -4,19 +4,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="递归 vs 迭代, Moushuai">
-    <meta name="description" content="首先提出两个问题
-
-所有递归都可以改写成循环吗？
-改写后会有什么好处？
-
-接下来我们仔细分析下具体的区别
-递归转换为迭代的方法
-对于递归而言有两种转换方式
-一、直接转换法
-方法：使用变量保存中间结果
-计算阶乘：
-long fact(int ">
+    <meta name="keywords" content="僵尸进程与孤儿进程, Moushuai">
+    <meta name="description" content="什么是僵尸进程，什么是孤儿进程，会带来什么问题，如何解决？
+基本概念
+子进程由父进程创建，而子进程和父进程的运行是异步的，谁也不确定谁先运行，当子进程完成工作时，父进程需要使用
+wait 或 waitpid 来获取子进程终止状态
+孤儿进程 ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -39,7 +32,7 @@ long fact(int ">
 </script>
 
 
-    <title>递归 vs 迭代 | Moushuai</title>
+    <title>僵尸进程与孤儿进程 | Moushuai</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -294,12 +287,12 @@ long fact(int ">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">递归 vs 迭代</h1>
+                    <h1 class="description center-align post-title">僵尸进程与孤儿进程</h1>
                 </div>
             </div>
         </div>
@@ -323,8 +316,8 @@ long fact(int ">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
-                                <span class="chip bg-color">数据结构与算法</span>
+                            <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                <span class="chip bg-color">操作系统</span>
                             </a>
                         
                     </div>
@@ -339,28 +332,28 @@ long fact(int ">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-08-24
+                    2022-09-06
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-08-26
+                    2022-09-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    615
+                    1.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    5 分
                 </div>
                 
 
@@ -383,94 +376,171 @@ long fact(int ">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>首先提出两个问题</p>
-<ul>
-<li>所有递归都可以改写成循环吗？</li>
-<li>改写后会有什么好处？</li>
-</ul>
-<p>接下来我们仔细分析下具体的区别</p>
-<h2 id="递归转换为迭代的方法">递归转换为迭代的方法</h2>
-<p>对于递归而言有两种转换方式</p>
-<h3 id="一直接转换法">一、直接转换法</h3>
-<p><strong>方法</strong>：使用变量保存中间结果</p>
-<p>计算阶乘：</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">long</span> <span class="token function">fact</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-　　<span class="token keyword">if</span> <span class="token punctuation">(</span>n<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
-　　<span class="token keyword">else</span> <span class="token keyword">return</span> n<span class="token operator">*</span><span class="token function">fact</span><span class="token punctuation">(</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">long</span> <span class="token function">fact</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-　　<span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-　　<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
-　      res <span class="token operator">*=</span> i<span class="token punctuation">;</span>
-　　<span class="token keyword">return</span> res<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>可以看到，时间复杂度依旧为 <span
-class="math inline">\(\mathcal{O}(n)\)</span>，但空间复杂度已经从 <span
-class="math inline">\(\mathcal{O}(n) \to \mathcal{O}(1)\)</span>
-了，因为原本需要调用 <code>fact(...)</code> <span
-class="math inline">\(n\)</span> 次，但现在只需要 <span
-class="math inline">\(1\)</span> 次了</p>
-<h3 id="二间接转换法">二、间接转换法</h3>
-<p><strong>方法</strong>：使用栈保存中间结果</p>
-<p>树的先序遍历：</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">/**
- * Definition for a binary tree node.
- * struct TreeNode &#123;
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;
- * &#125;;
- */</span>
-<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">&#123;</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-    <span class="token keyword">void</span> <span class="token function">travel</span><span class="token punctuation">(</span>TreeNode <span class="token operator">*</span>root<span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>root <span class="token operator">==</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span>
-        <span class="token punctuation">&#123;</span>
-            <span class="token keyword">return</span><span class="token punctuation">;</span>
+                <p>什么是僵尸进程，什么是孤儿进程，会带来什么问题，如何解决？</p>
+<h2 id="基本概念">基本概念</h2>
+<p>子进程由父进程创建，而子进程和父进程的运行是异步的，谁也不确定谁先运行，当子进程完成工作时，父进程需要使用
+<code>wait</code> 或 <code>waitpid</code> 来获取子进程终止状态</p>
+<h2 id="孤儿进程">孤儿进程 👶</h2>
+<h3 id="产生原因">产生原因</h3>
+<p>父进程先于子进程退出（没有使用 <code>wait</code> 或
+<code>waitpid</code>），子进程还在运行，则这些子进程会变成孤儿进程，将被
+init 进程（pid 为 1）收养，并由 init 对其进行状态收集</p>
+<h3 id="危害">危害</h3>
+<p>孤儿进程由 init 进程收养，并不会有什么危害</p>
+<h3 id="代码">代码</h3>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 对于 fork，父进程返回子进程 pid，子进程返回 0，失败返回 -1</span>
+    pid_t pid <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">perror</span><span class="token punctuation">(</span><span class="token string">"Fork Error"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 子进程</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"I'm the child process\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"pid: %d\tppid: %d\n"</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">getppid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 确保此时父进程已退出，被 init 进程收养</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"pid: %d\tppid: %d\n"</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">getppid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"child process is exited\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 父进程</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"I'm the father process\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 确保子进程先输出当前的 ppid</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"father process is exited\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">I'm the father process
+I'm the child process
+pid: 27788      ppid: 27787
+father process is exited
+pid: 27788      ppid: 1
+child process is exited<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="僵尸进程">僵尸进程 🧟‍♀️</h2>
+<h3 id="产生原因-1">产生原因</h3>
+<p>子进程退出，父进程没有调用 <code>wait</code> 或 <code>waitpid</code>
+获取子进程状态，则子进程的进程描述符会一直占用，被称为僵尸进程</p>
+<h3 id="危害-1">危害</h3>
+<p>僵尸进程的进程描述符会一直占用，如产生大量僵尸进程会导致可用的 pid
+大量减少，甚至不能产生新进程，且会占用空间</p>
+<h3 id="解决方案">解决方案</h3>
+<p>僵尸进程的罪魁祸首是不回收子进程的父进程，可以 <code>kill</code> 发送
+<code>SIGKILL</code> 或 <code>SIGTERM</code> 来枪毙他，让 init
+进程回收这些孤儿进程，使这些僵死的孤儿进程瞑目</p>
+<h3 id="代码-1">代码</h3>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 对于 fork，父进程返回子进程 pid，子进程返回 0，失败返回 -1</span>
+    pid_t pid <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">perror</span><span class="token punctuation">(</span><span class="token string">"Fork Error"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 子进程</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"I'm the child process\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"pid: %d\tppid: %d\n"</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">getppid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"child process is exited\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"I'm the father process\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 确保子进程先输出当前的 ppid</span>
+    <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"ps -o pid,ppid,state,tty,command | grep zombie | grep -v grep"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"father process is exited\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">I'm the father process
+I'm the child process
+pid: 30196      ppid: 30195
+child process is exited
+30195 11875 S+   ttys008  /Users/world/code/tmp/zombie
+30196 30195 Z+   ttys008  (zombie)
+father process is exited<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>大量产生僵尸进程</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 对于 fork，父进程返回子进程 pid，子进程返回 0，失败返回 -1</span>
+        pid_t pid <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token function">perror</span><span class="token punctuation">(</span><span class="token string">"Fork Error"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 子进程</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"I am a child process.\nI am exiting.\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">&#125;</span>
-        res<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>root<span class="token operator">-></span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">travel</span><span class="token punctuation">(</span>root<span class="token operator">-></span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">travel</span><span class="token punctuation">(</span>root<span class="token operator">-></span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 确保子进程先输出当前的 ppid</span>
+        <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"ps -o pid,ppid,state,tty,command | grep zombie | grep -v grep"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
-    vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">preorderTraversal</span><span class="token punctuation">(</span>TreeNode<span class="token operator">*</span> root<span class="token punctuation">)</span> 
-    <span class="token punctuation">&#123;</span>
-        <span class="token function">travel</span><span class="token punctuation">(</span>root<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token keyword">private</span><span class="token operator">:</span>
-    vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> res<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">&#123;</span>
-<span class="token keyword">public</span><span class="token operator">:</span>
-    vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">preorderTraversal</span><span class="token punctuation">(</span>TreeNode<span class="token operator">*</span> root<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> ans<span class="token punctuation">;</span>
-        stack<span class="token operator">&lt;</span>TreeNode<span class="token operator">*</span><span class="token operator">></span> st<span class="token punctuation">;</span>
-        TreeNode <span class="token operator">*</span>p<span class="token operator">=</span>root<span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>st<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">||</span> p<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">while</span> <span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                ans<span class="token punctuation">.</span><span class="token function">emplace_back</span><span class="token punctuation">(</span>p<span class="token operator">-></span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                st<span class="token punctuation">.</span><span class="token function">emplace</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                p <span class="token operator">=</span> p<span class="token operator">-></span>left<span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-            p <span class="token operator">=</span> st<span class="token punctuation">.</span><span class="token function">top</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            st<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            p <span class="token operator">=</span> p<span class="token operator">-></span>right<span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>但此处的时间和空间复杂度却都没有变化，因为用栈来保存结果，本质就是在模拟函数调用的过程，并没有什么好处，但编写代码的难度却大大提高</p>
-<p>所以，回答下开头的问题</p>
-<h2 id="所有递归都可以改写成循环吗">所有递归都可以改写成循环吗？</h2>
-<p>是的，所有递归都使用直接或间接的方式转换</p>
-<h2 id="改写后会有什么好处">改写后会有什么好处？</h2>
-<p>使用直接转换可以避免空间上的开销，使用间接转换本质在模拟函数调用没有意义</p>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">I am a child process.
+I am exiting.
+30960 11875 S+   ttys008  /Users/world/code/tmp/zombie2
+30965 30960 Z+   ttys008  (zombie2)
+I am a child process.
+I am exiting.
+30960 11875 S+   ttys008  /Users/world/code/tmp/zombie2
+30965 30960 Z+   ttys008  (zombie2)
+30974 30960 Z+   ttys008  (zombie2)
+I am a child process.
+I am exiting.
+30960 11875 S+   ttys008  /Users/world/code/tmp/zombie2
+30965 30960 Z+   ttys008  (zombie2)
+30974 30960 Z+   ttys008  (zombie2)
+30983 30960 Z+   ttys008  (zombie2)
+I am a child process.
+I am exiting.
+30960 11875 S+   ttys008  /Users/world/code/tmp/zombie2
+30965 30960 Z+   ttys008  (zombie2)
+30974 30960 Z+   ttys008  (zombie2)
+30983 30960 Z+   ttys008  (zombie2)
+30992 30960 Z+   ttys008  (zombie2)
+I am a child process.
+I am exiting.
+30960 11875 S+   ttys008  /Users/world/code/tmp/zombie2
+30965 30960 Z+   ttys008  (zombie2)
+30974 30960 Z+   ttys008  (zombie2)
+30983 30960 Z+   ttys008  (zombie2)
+30992 30960 Z+   ttys008  (zombie2)
+31001 30960 Z+   ttys008  (zombie2)
+I am a child process.
+I am exiting.
+30960 11875 S+   ttys008  /Users/world/code/tmp/zombie2
+30965 30960 Z+   ttys008  (zombie2)
+30974 30960 Z+   ttys008  (zombie2)
+30983 30960 Z+   ttys008  (zombie2)
+30992 30960 Z+   ttys008  (zombie2)
+31001 30960 Z+   ttys008  (zombie2)
+31014 30960 Z+   ttys008  (zombie2)
+I am a child process.
+I am exiting.
+30960 11875 S+   ttys008  /Users/world/code/tmp/zombie2
+30965 30960 Z+   ttys008  (zombie2)
+30974 30960 Z+   ttys008  (zombie2)
+30983 30960 Z+   ttys008  (zombie2)
+30992 30960 Z+   ttys008  (zombie2)
+31001 30960 Z+   ttys008  (zombie2)
+31014 30960 Z+   ttys008  (zombie2)
+31023 30960 Z+   ttys008  (zombie2)
+I am a child process.
+I am exiting.
+^C<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最后使用 Ctrl-C 退出，僵尸进程被 init 收养释放，也可以使用
+<code>kill -9 &lt;pid&gt;</code></p>
 <h2 id="总结">总结</h2>
-<p>虽然递归有着很大的空间开销，但很多时候我们是很难用迭代写出我们想要的程序，而且空间上的开销也不是很重要，相比较迭代的自底向上，递归的自顶向下往往更符合人类的逻辑，很多时候做动态规划的题目没有思路的时候，都可以考虑用自顶向下的记忆化搜索来完成</p>
+<p>无论是孤儿进程还是僵尸进程产生的原因都是父进程没有 <code>wait</code>
+或
+<code>waitpid</code>，区别在于孤儿进程是父进程先走，僵尸进程是子进程先走</p>
+<h2 id="参考">参考</h2>
+<p><a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/anker/p/3271773.html">孤儿进程与僵尸进程[总结]</a></p>
 
                 
             </div>
@@ -497,7 +567,7 @@ class="math inline">\(1\)</span> 次了</p>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://cs-moushuai.github.io/2022/08/24/di-gui-vs-die-dai/">https://cs-moushuai.github.io/2022/08/24/di-gui-vs-die-dai/</a>
+                    <a href="https://cs-moushuai.github.io/2022/09/06/jiang-shi-jin-cheng-yu-gu-er-jin-cheng/">https://cs-moushuai.github.io/2022/09/06/jiang-shi-jin-cheng-yu-gu-er-jin-cheng/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -535,8 +605,8 @@ class="math inline">\(1\)</span> 次了</p>
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
-                                    <span class="chip bg-color">数据结构与算法</span>
+                                <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                    <span class="chip bg-color">操作系统</span>
                                 </a>
                             
                         </div>
@@ -614,7 +684,7 @@ class="math inline">\(1\)</span> 次了</p>
         repo: 'cs-moushuai.github.io',
         owner: 'cs-moushuai',
         admin: "cs-moushuai",
-        id: '2022-08-24T15-04-36',
+        id: '2022-09-06T01-01-31',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -644,17 +714,18 @@ class="math inline">\(1\)</span> 次了</p>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/08/25/c-shi-xian-gao-xing-neng-nei-cun-chi/">
+                <a href="/2022/09/06/jiang-shi-jin-cheng-yu-gu-er-jin-cheng/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="C++ 实现高性能内存池">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="僵尸进程与孤儿进程">
                         
-                        <span class="card-title">C++ 实现高性能内存池</span>
+                        <span class="card-title">僵尸进程与孤儿进程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -664,9 +735,9 @@ class="math inline">\(1\)</span> 次了</p>
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -675,15 +746,12 @@ class="math inline">\(1\)</span> 次了</p>
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/C/">
-                        <span class="chip bg-color">C++</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">数据结构与算法</span>
+                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="chip bg-color">操作系统</span>
                     </a>
                     
                 </div>
@@ -697,13 +765,13 @@ class="math inline">\(1\)</span> 次了</p>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/08/23/li-dian-chi-bao-yang-shou-ce/">
+                <a href="/2022/09/01/qian-tan-wang-luo-i-o/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="锂电池保养手册">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="浅谈网络 I/O">
                         
-                        <span class="card-title">锂电池保养手册</span>
+                        <span class="card-title">浅谈网络 I/O</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -714,7 +782,7 @@ class="math inline">\(1\)</span> 次了</p>
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-23
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-01
                             </span>
                         <span class="publish-author">
                             
@@ -727,12 +795,8 @@ class="math inline">\(1\)</span> 次了</p>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%95%B0%E7%A0%81/">
-                        <span class="chip bg-color">数码</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%97%A5%E5%B8%B8/">
-                        <span class="chip bg-color">日常</span>
+                    <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">网络</span>
                     </a>
                     
                 </div>
@@ -856,13 +920,6 @@ class="math inline">\(1\)</span> 次了</p>
 
 </main>
 
-
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-    });
-</script>
 
 
 
