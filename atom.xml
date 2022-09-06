@@ -6,7 +6,7 @@
   <link href="https://cs-moushuai.github.io/atom.xml" rel="self"/>
   
   <link href="https://cs-moushuai.github.io/"/>
-  <updated>2022-09-06T02:10:24.299Z</updated>
+  <updated>2022-09-06T03:40:42.236Z</updated>
   <id>https://cs-moushuai.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C++ 构造和析构的顺序</title>
+    <link href="https://cs-moushuai.github.io/2022/09/06/c-gou-zao-he-xi-gou-de-shun-xu/"/>
+    <id>https://cs-moushuai.github.io/2022/09/06/c-gou-zao-he-xi-gou-de-shun-xu/</id>
+    <published>2022-09-05T19:08:26.000Z</published>
+    <updated>2022-09-06T03:40:42.236Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;构造函数调用顺序&quot;&gt;构造函数调用顺序&lt;/h2&gt;
+&lt;ol</summary>
+        
+      
+    
+    
+    
+    
+    <category term="C++" scheme="https://cs-moushuai.github.io/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>僵尸进程与孤儿进程</title>

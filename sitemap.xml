@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cs-moushuai.github.io/2022/09/06/c-gou-zao-he-xi-gou-de-shun-xu/</loc>
+    
+    <lastmod>2022-09-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://cs-moushuai.github.io/2022/09/06/jiang-shi-jin-cheng-yu-gu-er-jin-cheng/</loc>
     
     <lastmod>2022-09-06</lastmod>
@@ -110,6 +119,13 @@
 
   
   <url>
+    <loc>https://cs-moushuai.github.io/tags/%E7%BD%91%E7%BB%9C/</loc>
+    <lastmod>2022-09-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://cs-moushuai.github.io/tags/C/</loc>
     <lastmod>2022-09-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -125,13 +141,6 @@
   
   <url>
     <loc>https://cs-moushuai.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2022-09-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cs-moushuai.github.io/tags/%E7%BD%91%E7%BB%9C/</loc>
     <lastmod>2022-09-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
