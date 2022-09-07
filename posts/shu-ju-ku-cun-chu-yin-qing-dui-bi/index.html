@@ -346,14 +346,14 @@ MySQL中的数据用各种不同的技术存储在文件（或者内存）中。
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    499
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -539,6 +539,33 @@ style="text-align: center;">集群存储引擎，数据全部放在内存中，�
 <blockquote>
 <p>注：新 MySQL 的存储引擎默认是 InnoDB</p>
 </blockquote>
+<p>以下内容来自 <a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1zr4y1x7o7/?spm_id_from=pageDriver&amp;vd_source=792f3008384e88bd777ae4c2be9b658b">bilibili
+视频笔记</a></p>
+<p>MySQL中常用的四种存储引擎分别是：
+MyISAM、InnoDB、MEMORY、ARCHIVE。MySQL
+5.5版本后默认的存储引擎为InnoDB。</p>
+<h3 id="innodb存储引擎">InnoDB存储引擎</h3>
+<p>InnoDB是MySQL默认的事务型存储引擎，使用最广泛，基于聚簇索引建立的。InnoDB内部做了很多优化，如能够自动在内存中创建自适应hash索引，以加速读操作。</p>
+<p>优点：支持事务和崩溃修复能力；引入了行级锁和外键约束。</p>
+<p>缺点：占用的数据空间相对较大。</p>
+<p>适用场景：需要事务支持，并且有较高的并发读写频率。</p>
+<h3 id="myisam存储引擎">MyISAM存储引擎</h3>
+<p>数据以紧密格式存储。对于只读数据，或者表比较小、可以容忍修复操作，可以使用MyISAM引擎。MyISAM会将表存储在两个文件中，数据文件.MYD和索引文件.MYI。</p>
+<p>优点：访问速度快。</p>
+<p>缺点：MyISAM不支持事务和行级锁，不支持崩溃后的安全恢复，也不支持外键。</p>
+<p>适用场景：对事务完整性没有要求；表的数据都会只读的。</p>
+<h3 id="memory存储引擎">MEMORY存储引擎</h3>
+<p>MEMORY引擎将数据全部放在内存中，访问速度较快，但是一旦系统奔溃的话，数据都会丢失。</p>
+<p>MEMORY引擎默认使用哈希索引，将键的哈希值和指向数据行的指针保存在哈希索引中。</p>
+<p>优点：访问速度较快。</p>
+<p>缺点：</p>
+<p>哈希索引数据不是按照索引值顺序存储，无法用于排序。
+不支持部分索引匹配查找，因为哈希索引是使用索引列的全部内容来计算哈希值的。
+只支持等值比较，不支持范围查询。
+当出现哈希冲突时，存储引擎需要遍历链表中所有的行指针，逐行进行比较，直到找到符合条件的行。</p>
+<h3 id="archive存储引擎">ARCHIVE存储引擎</h3>
+<p>ARCHIVE存储引擎非常适合存储大量独立的、作为历史记录的数据。ARCHIVE提供了压缩功能，拥有高效的插入速度，但是这种引擎不支持索引，所以查询性能较差。</p>
 <h2 id="参考">参考</h2>
 <p><a
 target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020383024">存储引擎对比</a></p>
@@ -996,7 +1023,7 @@ target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020383024
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">9.4k</span>
+                        class="white-color">9.9k</span>
             
             
             
