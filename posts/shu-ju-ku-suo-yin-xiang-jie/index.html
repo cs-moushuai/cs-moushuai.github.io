@@ -4,12 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="僵尸进程与孤儿进程, Moushuai">
-    <meta name="description" content="什么是僵尸进程，什么是孤儿进程，会带来什么问题，如何解决？
-基本概念
-子进程由父进程创建，而子进程和父进程的运行是异步的，谁也不确定谁先运行，当子进程完成工作时，父进程需要使用
-wait 或 waitpid 来获取子进程终止状态
-孤儿进程 ">
+    <meta name="keywords" content="数据库索引详解, Moushuai">
+    <meta name="description" content="
+什么是索引？
+正常使用 select
+需要对表中所有元素进行遍历，效率极低，而索引是对数据库中列进行有序化的数据结构，使用其可以快速访问特定信息
+索引优点
+
+通过创建唯一性索引，可以保证数据库表中每一行数据的唯一性；
+可以加快数据的检索速">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -32,7 +35,7 @@ wait 或 waitpid 来获取子进程终止状态
 </script>
 
 
-    <title>僵尸进程与孤儿进程 | Moushuai</title>
+    <title>数据库索引详解 | Moushuai</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -287,12 +290,12 @@ wait 或 waitpid 来获取子进程终止状态
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">僵尸进程与孤儿进程</h1>
+                    <h1 class="description center-align post-title">数据库索引详解</h1>
                 </div>
             </div>
         </div>
@@ -316,8 +319,8 @@ wait 或 waitpid 来获取子进程终止状态
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                                <span class="chip bg-color">操作系统</span>
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                <span class="chip bg-color">数据库</span>
                             </a>
                         
                     </div>
@@ -339,21 +342,21 @@ wait 或 waitpid 来获取子进程终止状态
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-09-06
+                    2022-09-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    2.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    9 分
                 </div>
                 
 
@@ -376,171 +379,173 @@ wait 或 waitpid 来获取子进程终止状态
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>什么是僵尸进程，什么是孤儿进程，会带来什么问题，如何解决？</p>
-<h2 id="基本概念">基本概念</h2>
-<p>子进程由父进程创建，而子进程和父进程的运行是异步的，谁也不确定谁先运行，当子进程完成工作时，父进程需要使用
-<code>wait</code> 或 <code>waitpid</code> 来获取子进程终止状态</p>
-<h2 id="孤儿进程">孤儿进程 👶</h2>
-<h3 id="产生原因">产生原因</h3>
-<p>父进程先于子进程退出（没有使用 <code>wait</code> 或
-<code>waitpid</code>），子进程还在运行，则这些子进程会变成孤儿进程，将被
-init 进程（pid 为 1）收养，并由 init 对其进行状态收集</p>
-<h3 id="危害">危害</h3>
-<p>孤儿进程由 init 进程收养，并不会有什么危害</p>
-<h3 id="代码">代码</h3>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+                <p><img src="1.png" alt="总纲" /></p>
+<h2 id="什么是索引">什么是索引？</h2>
+<p>正常使用 <code>select</code>
+需要对表中所有元素进行遍历，效率极低，而索引是对数据库中列进行有序化的数据结构，使用其可以快速访问特定信息</p>
+<h2 id="索引优点">索引优点</h2>
+<ul>
+<li>通过创建<strong>唯一性索引</strong>，可以保证数据库表中每一行数据的唯一性；</li>
+<li>可以加快数据的<strong>检索速度</strong>，这也是创建索引的主要原因；</li>
+<li>可以加速表和表之间的连接，特别是在实现<strong>数据的参考完整性</strong>方面特别有意义；</li>
+<li>通过使用索引，可以在查询的过程中，使用<strong>优化隐藏器</strong>，提高系统性能。</li>
+</ul>
+<h2 id="索引缺点">索引缺点</h2>
+<ul>
+<li>时间上，创建和维护索引都要耗费时间，这种时间随着数据量的增加而增加，具体地，当对表中的数据进行增加、删除和修改的时候，索引也要动态的维护，这样就降低了数据的维护速度；</li>
+<li>空间上，索引需要占<strong>物理空间</strong>，除了数据表占数据空间之外，每一个索引还要占一定的物理空间，如果要建立聚簇索引，那么需要的空间就会更大。</li>
+</ul>
+<h2 id="按数据结构分类">按数据结构分类</h2>
+<p><img src="2.png" alt="存储引擎支持索引类别" /></p>
+<blockquote>
+<p>注：InnoDB实际上也支持Hash索引，但是InnoDB中Hash索引的创建由存储引擎引擎自动优化创建，不能人为干预是否为表创建Hash索引</p>
+</blockquote>
+<h3 id="btree-索引">BTREE 索引</h3>
+<p>B 树也称 B-
+树，它是一颗多路平衡查找树，相较于红黑树这种平衡树，其树的高度更低，这也意味着磁盘
+IO 的次数更少</p>
+<p>B+ 树是其的 plus 版本，常用于数据库索引（InnoDB 默认），具有 B
+树的平衡性，同时节点间通过双向链表提高了区间查询的性能</p>
+<p>B+tree 非叶子节点只存储键值信息，
+数据记录都存放在叶子节点中。而B-tree的非叶子节点也存储数据。所以 B+tree
+单个节点的数据量更小，在相同的磁盘I/O次数下，能查询更多的节点。</p>
+<h3 id="位图索引">位图索引</h3>
+<p>适用于字段取值范围小的情况，如：性别，婚姻状况</p>
+<ul>
+<li>不使用索引<br />
+不使用索引时，数据库只能一行行扫描所有记录，然后判断该记录是否满足查询条件。</li>
+<li>BTREE 索引<br />
+对于性别，可取值的范围只有'男','女'，并且男和女可能各站该表的50%的数据，这时添加B树索引还是需要取出一半的数据，
+因此完全没有必要。相反，如果某个字段的取值范围很广，几乎没有重复，比如身份证号，此时使用B树索引较为合适。事实上，当取出的行数据占用表中大部分的数据时，即使添加了B树索引，数据库如oracle、mysql也不会使用B树索引，很有可能还是一行行全部扫描。</li>
+</ul>
+<p>那位图索引呢，通过位向量形式表示</p>
+<p>性别：</p>
+<p><img src="3.png" alt="性别位图" /></p>
+<p>其中 1 表示为男，否则为女，则位图索引生成两个向量</p>
+<p>男向量：10100</p>
+<p>女向量：01011</p>
+<p>对于婚姻状况这一列，位图索引生成三个向量，已婚为11000...，未婚为00100...，离婚为00010...</p>
+<p><img src="4.png" alt="婚姻状况" /></p>
+<p><code>select * from &lt;table&gt; where gender="男" and marriage="未婚"</code></p>
+<p>取出男向量 10100，未婚向量 00100 进行 AND 操作，结果为
+00100，第三行为结果</p>
+<h3 id="hash-索引">hash 索引</h3>
+<p>哈希索引通过 hash
+算法（直接定址法，平方取中法，折叠法，除数取余法，随机数法）将数据转换为
+hash 的 key，对应的 value 为数据，MySQL 中只有 Memory
+引擎显式的支持哈希索引，这也是Memory引擎表的默认索引结构，Memory同时也支持B-Tree索引。并且，Memory引擎支持非唯一哈希索引，当发生
+hash 冲突时，使用拉链法解决</p>
+<p>InnoBD引擎有一个特殊的功能叫“自适应哈希索引”。当InnoDB注意到某些索引值被使用得非常频繁时，它会在内存中基于B-Tree索引之上再创建一个哈希索引，这样就让B-Tree索引也具有哈希索引的一些优点，比如快速的哈希查找。但这是一个完全自动的、内部的行为，用于无法控制，但用户可以选择完全关闭该动能。</p>
+<p>在使用InnoBD引擎时，我们可以在B-Tree的基础上创建一个伪哈希索引。当然这不是真正的哈希索引，因为还是使用的B-Tree进行查找，但它使用哈希值而不是键本身进行索引查找。</p>
+<p>例如，如果需要存储大量的URL并且需要根据URL进行查找，如果使用B-Tree来存储URL，则存储的内容就会很大，因为URL本身就很长。为此，我们可以单独指定一个哈希列并为该列创建索引，并选择一个哈希函数！每次存储、变更URL时，对该URL应用一个函数计算出一个哈希值，存入对应的哈希列中。</p>
+<p>在查询时，如果采用体积很小的基于哈希值的索引来查找，则性能会提升很多，唯一的缺点就是需要调用一个哈希函数，为此我们可以使用触发器来实现。</p>
+<p>如果出现了哈希冲突，则查询会返回多行数据，为此在查询时还必须带上真正的URL常量值。正确的查询语句为：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span> xx <span class="token keyword">from</span> url
+<span class="token keyword">where</span> url_hash <span class="token operator">=</span> <span class="token keyword">hash</span><span class="token punctuation">(</span><span class="token string">'https://www.baidu.com/'</span><span class="token punctuation">)</span> <span class="token operator">AND</span> url <span class="token operator">=</span> <span class="token string">'https://www.baidu.com/'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="优点">优点</h4>
+<p>查询速度极快，平均为 <span
+class="math inline">\(\mathcal{O}(1)\)</span></p>
+<h4 id="缺点">缺点</h4>
+<ol type="1">
+<li>只能用于等值查询，如 =, !=,
+IN，由于本身的数据结构，像范围查询（BETWEEN），模糊查询（LIKE）都是用不了的</li>
+<li>不能排序，哈希表是无序的</li>
+<li>不支持部分索引列查询，如对（A，B）建立索引，若查询只有
+A，则无法用索引</li>
+<li>仍需要回表查询<br />
+由于可能发生哈希冲突，需要将数据与数据库中的数据比较</li>
+<li>哈希表负载因子高了，性能会降低</li>
+</ol>
+<p>所以其使用场景很小</p>
+<h2 id="按物理存储分类">按物理存储分类</h2>
+<p><strong>区别：</strong>聚簇索引节点存放行记录数据，而非聚簇索引存放指针</p>
+<h3 id="聚簇索引">聚簇索引</h3>
+<p>也称聚集索引，根据每张表的主键构造一颗 B+
+树，叶子结点存放行记录数据<br />
+InnoDB
+表要求必须有聚簇索引，默认在主键字段上建立聚簇索引，在没有主键字段的情况下，表的第一个非空的唯一索引将被建立为聚簇索引，在前两者都没有的情况下，InnoDB
+将自动生成一个隐式的自增 id 列，并在此列上建立聚簇索引。 以 MyISAM
+为存储引擎的表不存在聚簇索引。</p>
+<p><strong>优点：</strong></p>
+<ol type="1">
+<li>速度快，因为其将数据直接存在结点上，少了一次查询</li>
+<li>数据逻辑上连续（物理上不连续），区间查询很快<br />
+页间使用双向链表，页内使用单向链表来实现顺序性</li>
+</ol>
+<h3 id="非聚簇索引">非聚簇索引</h3>
+<p>也称二级索引，辅助索引，叶子结点存放的是数据的指针</p>
+<h2 id="按字段特性分类">按字段特性分类</h2>
+<h3 id="普通索引">普通索引</h3>
+<p>普通索引就是最最基础的索引，这种索引没有任何的约束作用，它存在的主要意义就是提高查询效率。</p>
+<h3 id="唯一性索引">唯一性索引</h3>
+<p>在普通索引的基础上加上唯一性约束</p>
+<h3 id="主键索引">主键索引</h3>
+<p>在唯一性索引的基础上加上非空约束</p>
+<h3 id="全文索引">全文索引</h3>
+<p>对内容进行分词， MySQL 中少用（5.6 版本后支持）</p>
+<h3 id="前缀索引">前缀索引</h3>
+<p>对字符类型字段的前几个字符或 bytes
+建立索引，而不是整个字段，大大减少索引占用空间，也提高了查找效率，关键在于建立多长的前缀使得查到的数据冲突少，但同时也会带来空间的开销</p>
+<h2 id="按字段个数分类">按字段个数分类</h2>
+<h3 id="单列索引">单列索引</h3>
+<p>对单个列进行索引</p>
+<h3 id="联合索引">联合索引</h3>
+<p>对多个列进行索引，又称复合索引，组合索引，使用最左前缀原则匹配</p>
+<p><strong>最左前缀原则</strong>：</p>
+<p>进行匹配，必须按照组合索引从左往右添加 <code>where</code>
+条件，当遇到范围查询，如：&lt;, &gt;, between, like 等就会停止匹配</p>
+<ol type="1">
+<li>像对 (a, b, c) 建立索引，查询条件 a / ab / abc 会走索引，使用 bc
+不会索引<br />
+因为 <code>a</code> 全局有序，<code>b</code> 是局部有序，只有
+<code>a</code> 确定了，<code>b</code> 才能有序</li>
+<li>如 <code>where a=1 and b&gt;2 and c=3</code> 时，<code>b</code>
+进行了范围查找，此时 <code>c</code> 用不了索引</li>
+</ol>
+<h2 id="覆盖索引的情况">覆盖索引的情况</h2>
+<p>当数据在二级索引且为联合索引中找到时，不需要回表查询，
+可以用Explain命令查看SQL语句的执行计划，执行计划的Extra字段中若出现Using
+index，表示查询触发了索引覆盖。</p>
+<p>如：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token identifier"><span class="token punctuation">`</span>student<span class="token punctuation">`</span></span> <span class="token punctuation">(</span>
+  <span class="token identifier"><span class="token punctuation">`</span>id<span class="token punctuation">`</span></span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">AUTO_INCREMENT</span> <span class="token keyword">COMMENT</span> <span class="token string">'自增主键'</span><span class="token punctuation">,</span>
+  <span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span> <span class="token keyword">COLLATE</span> utf8_bin <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">COMMENT</span> <span class="token string">'名称'</span><span class="token punctuation">,</span>
+  <span class="token identifier"><span class="token punctuation">`</span>age<span class="token punctuation">`</span></span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token keyword">unsigned</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token string">'1'</span> <span class="token keyword">COMMENT</span> <span class="token string">'年龄'</span><span class="token punctuation">,</span>
+  <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>id<span class="token punctuation">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token keyword">KEY</span> <span class="token identifier"><span class="token punctuation">`</span>I_name<span class="token punctuation">`</span></span> <span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">InnoDB</span><span class="token punctuation">;</span>
 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 对于 fork，父进程返回子进程 pid，子进程返回 0，失败返回 -1</span>
-    pid_t pid <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">perror</span><span class="token punctuation">(</span><span class="token string">"Fork Error"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 子进程</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"I'm the child process\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"pid: %d\tppid: %d\n"</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">getppid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 确保此时父进程已退出，被 init 进程收养</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"pid: %d\tppid: %d\n"</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">getppid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"child process is exited\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 父进程</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"I'm the father process\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 确保子进程先输出当前的 ppid</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"father process is exited\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-text" data-language="text"><code class="language-text">I'm the father process
-I'm the child process
-pid: 27788      ppid: 27787
-father process is exited
-pid: 27788      ppid: 1
-child process is exited<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="僵尸进程">僵尸进程 🧟‍♀️</h2>
-<h3 id="产生原因-1">产生原因</h3>
-<p>子进程退出，父进程没有调用 <code>wait</code> 或 <code>waitpid</code>
-获取子进程状态，则子进程的进程描述符会一直占用，被称为僵尸进程</p>
-<h3 id="危害-1">危害</h3>
-<p>僵尸进程的进程描述符会一直占用，如产生大量僵尸进程会导致可用的 pid
-大量减少，甚至不能产生新进程，且会占用空间</p>
-<h3 id="解决方案">解决方案</h3>
-<p>僵尸进程的罪魁祸首是不回收子进程的父进程，可以 <code>kill</code> 发送
-<code>SIGKILL</code> 或 <code>SIGTERM</code> 来枪毙他，让 init
-进程回收这些孤儿进程，使这些僵死的孤儿进程瞑目</p>
-<h3 id="代码-1">代码</h3>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> student <span class="token punctuation">(</span>name<span class="token punctuation">,</span> age<span class="token punctuation">)</span> <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token string">"小赵"</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">"小王"</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">"小李"</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">"小陈"</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 对于 fork，父进程返回子进程 pid，子进程返回 0，失败返回 -1</span>
-    pid_t pid <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">perror</span><span class="token punctuation">(</span><span class="token string">"Fork Error"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 子进程</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"I'm the child process\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"pid: %d\tppid: %d\n"</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">getppid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"child process is exited\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"I'm the father process\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 确保子进程先输出当前的 ppid</span>
-    <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"ps -o pid,ppid,state,tty,command | grep zombie | grep -v grep"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"father process is exited\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-text" data-language="text"><code class="language-text">I'm the father process
-I'm the child process
-pid: 30196      ppid: 30195
-child process is exited
-30195 11875 S+   ttys008  /Users/world/code/tmp/zombie
-30196 30195 Z+   ttys008  (zombie)
-father process is exited<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>大量产生僵尸进程</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> student <span class="token keyword">ADD</span> <span class="token keyword">INDEX</span> I_name_age<span class="token punctuation">(</span>name<span class="token punctuation">,</span> age<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// 对于 fork，父进程返回子进程 pid，子进程返回 0，失败返回 -1</span>
-        pid_t pid <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token function">perror</span><span class="token punctuation">(</span><span class="token string">"Fork Error"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 子进程</span>
-            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"I am a child process.\nI am exiting.\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 确保子进程先输出当前的 ppid</span>
-        <span class="token function">system</span><span class="token punctuation">(</span><span class="token string">"ps -o pid,ppid,state,tty,command | grep zombie | grep -v grep"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-text" data-language="text"><code class="language-text">I am a child process.
-I am exiting.
-30960 11875 S+   ttys008  /Users/world/code/tmp/zombie2
-30965 30960 Z+   ttys008  (zombie2)
-I am a child process.
-I am exiting.
-30960 11875 S+   ttys008  /Users/world/code/tmp/zombie2
-30965 30960 Z+   ttys008  (zombie2)
-30974 30960 Z+   ttys008  (zombie2)
-I am a child process.
-I am exiting.
-30960 11875 S+   ttys008  /Users/world/code/tmp/zombie2
-30965 30960 Z+   ttys008  (zombie2)
-30974 30960 Z+   ttys008  (zombie2)
-30983 30960 Z+   ttys008  (zombie2)
-I am a child process.
-I am exiting.
-30960 11875 S+   ttys008  /Users/world/code/tmp/zombie2
-30965 30960 Z+   ttys008  (zombie2)
-30974 30960 Z+   ttys008  (zombie2)
-30983 30960 Z+   ttys008  (zombie2)
-30992 30960 Z+   ttys008  (zombie2)
-I am a child process.
-I am exiting.
-30960 11875 S+   ttys008  /Users/world/code/tmp/zombie2
-30965 30960 Z+   ttys008  (zombie2)
-30974 30960 Z+   ttys008  (zombie2)
-30983 30960 Z+   ttys008  (zombie2)
-30992 30960 Z+   ttys008  (zombie2)
-31001 30960 Z+   ttys008  (zombie2)
-I am a child process.
-I am exiting.
-30960 11875 S+   ttys008  /Users/world/code/tmp/zombie2
-30965 30960 Z+   ttys008  (zombie2)
-30974 30960 Z+   ttys008  (zombie2)
-30983 30960 Z+   ttys008  (zombie2)
-30992 30960 Z+   ttys008  (zombie2)
-31001 30960 Z+   ttys008  (zombie2)
-31014 30960 Z+   ttys008  (zombie2)
-I am a child process.
-I am exiting.
-30960 11875 S+   ttys008  /Users/world/code/tmp/zombie2
-30965 30960 Z+   ttys008  (zombie2)
-30974 30960 Z+   ttys008  (zombie2)
-30983 30960 Z+   ttys008  (zombie2)
-30992 30960 Z+   ttys008  (zombie2)
-31001 30960 Z+   ttys008  (zombie2)
-31014 30960 Z+   ttys008  (zombie2)
-31023 30960 Z+   ttys008  (zombie2)
-I am a child process.
-I am exiting.
-^C<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>最后使用 Ctrl-C 退出，僵尸进程被 init 收养释放，也可以使用
-<code>kill -9 &lt;pid&gt;</code></p>
-<h2 id="总结">总结</h2>
-<p>无论是孤儿进程还是僵尸进程产生的原因都是父进程没有 <code>wait</code>
-或
-<code>waitpid</code>，区别在于孤儿进程是父进程先走，僵尸进程是子进程先走</p>
+<span class="token keyword">SELECT</span> age <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'小李'</span>；<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>name, age</code> 组成联合索引，<code>where</code> 中对
+<code>name</code> 进行查找，<code>select</code> 返回
+<code>age</code>，其存在于联合索引，不需要回表，故为覆盖索引</p>
+<h2 id="什么时候不该建立索引">什么时候不该建立索引？</h2>
+<p>索引虽好，但由于本身会带来空间上的开销，增删改操作也会变慢，所以有一些情况不适合建立索引</p>
+<ol type="1">
+<li>where 条件中用不到的字段不适合</li>
+<li>表记录很少只有几百条</li>
+<li>需要经常增删改，需要评估是否适合加索引</li>
+<li>参与列计算的列不适合</li>
+<li>区分度不高的字段不适合，如：性别（男，女，未知三个值），加了索引效率也不会太高，<code>select</code>
+会有多个值<br />
+ps：可以使用位图索引</li>
+</ol>
 <h2 id="参考">参考</h2>
 <p><a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/anker/p/3271773.html">孤儿进程与僵尸进程[总结]</a></p>
+target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43767015/article/details/119346481">MySQL哈希索引的数据结构以及索引的优缺点</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000037683781">MySQL索引有哪些分类，你真的清楚吗？</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020416577">B 树，B+
+树详解</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://juejin.cn/post/7078512620289916964">主键索引就是聚集索引？MySQL
+索引类型大梳理</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/lbser/p/3322630.html">位图（BitMap）索引</a></p>
 
                 
             </div>
@@ -567,7 +572,7 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/anker/p/3271773.htm
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://cs-moushuai.github.io/posts/jiang-shi-jin-cheng-yu-gu-er-jin-cheng/">https://cs-moushuai.github.io/posts/jiang-shi-jin-cheng-yu-gu-er-jin-cheng/</a>
+                    <a href="https://cs-moushuai.github.io/posts/shu-ju-ku-suo-yin-xiang-jie/">https://cs-moushuai.github.io/posts/shu-ju-ku-suo-yin-xiang-jie/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -605,8 +610,8 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/anker/p/3271773.htm
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                                    <span class="chip bg-color">操作系统</span>
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                    <span class="chip bg-color">数据库</span>
                                 </a>
                             
                         </div>
@@ -684,7 +689,7 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/anker/p/3271773.htm
         repo: 'cs-moushuai.github.io',
         owner: 'cs-moushuai',
         admin: "cs-moushuai",
-        id: '2022-09-06T01-01-31',
+        id: '2022-09-06T10-02-58',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -718,6 +723,51 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/anker/p/3271773.htm
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+                <a href="/posts/shu-ju-ku-cun-chu-yin-qing-dui-bi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="数据库存储引擎对比">
+                        
+                        <span class="card-title">数据库存储引擎对比</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-09-07
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Mou shuai
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">数据库</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/posts/c-gou-zao-he-xi-gou-de-shun-xu/">
                     <div class="card-image">
                         
@@ -734,9 +784,9 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/anker/p/3271773.htm
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-09-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -750,51 +800,6 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/anker/p/3271773.htm
                     
                     <a href="/tags/C/">
                         <span class="chip bg-color">C++</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/posts/qian-tan-wang-luo-i-o/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="浅谈网络 I/O">
-                        
-                        <span class="card-title">浅谈网络 I/O</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-01
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Mou shuai
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E7%BD%91%E7%BB%9C/">
-                        <span class="chip bg-color">网络</span>
                     </a>
                     
                 </div>
@@ -918,6 +923,13 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/anker/p/3271773.htm
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
 
 
 
