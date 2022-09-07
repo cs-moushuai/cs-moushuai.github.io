@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://cs-moushuai.github.io/2022-09-01/qian-tan-wang-luo-i-o/</loc>
+    <loc>https://cs-moushuai.github.io/posts/qian-tan-wang-luo-i-o/</loc>
     
     <lastmod>2022-09-07</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://cs-moushuai.github.io/2022-09-06/c-gou-zao-he-xi-gou-de-shun-xu/</loc>
+    <loc>https://cs-moushuai.github.io/posts/c-gou-zao-he-xi-gou-de-shun-xu/</loc>
     
     <lastmod>2022-09-06</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>https://cs-moushuai.github.io/2022-09-06/jiang-shi-jin-cheng-yu-gu-er-jin-cheng/</loc>
+    <loc>https://cs-moushuai.github.io/posts/jiang-shi-jin-cheng-yu-gu-er-jin-cheng/</loc>
     
     <lastmod>2022-09-06</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>https://cs-moushuai.github.io/2022-08-24/di-gui-vs-die-dai/</loc>
+    <loc>https://cs-moushuai.github.io/posts/di-gui-vs-die-dai/</loc>
     
     <lastmod>2022-08-26</lastmod>
     
@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>https://cs-moushuai.github.io/2022-08-25/c-shi-xian-gao-xing-neng-nei-cun-chi/</loc>
+    <loc>https://cs-moushuai.github.io/posts/c-shi-xian-gao-xing-neng-nei-cun-chi/</loc>
     
     <lastmod>2022-08-25</lastmod>
     
@@ -101,7 +101,7 @@
   </url>
   
   <url>
-    <loc>https://cs-moushuai.github.io/2022-08-23/li-dian-chi-bao-yang-shou-ce/</loc>
+    <loc>https://cs-moushuai.github.io/posts/li-dian-chi-bao-yang-shou-ce/</loc>
     
     <lastmod>2022-08-24</lastmod>
     
@@ -119,13 +119,6 @@
 
   
   <url>
-    <loc>https://cs-moushuai.github.io/tags/%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2022-09-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cs-moushuai.github.io/tags/C/</loc>
     <lastmod>2022-09-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -141,6 +134,13 @@
   
   <url>
     <loc>https://cs-moushuai.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2022-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cs-moushuai.github.io/tags/%E7%BD%91%E7%BB%9C/</loc>
     <lastmod>2022-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
