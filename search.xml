@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>数据库事务管理详解</title>
+      <link href="/posts/shu-ju-ku-shi-wu-guan-li-xiang-jie/"/>
+      <url>/posts/shu-ju-ku-shi-wu-guan-li-xiang-jie/</url>
+      
+        <content type="html"><![CDATA[<h2 id="基本概念">基本概念</h2><ul><li>事务（transaction）：是一组 SQL语句，是保证逻辑数据完整性和可恢复性的重要利器</li><li>回退（rollback）：撤销指定 SQL 语句</li><li>提交（commit）：将未存储的 SQL 语句写入数据库表</li><li>保留点（savepoint）：事务处理中临时占位符（placeholder），可以对其回退（不需要回退整个事务）</li></ul><h2 id="事务状态">事务状态</h2><p><img src="1.jpeg" alt="状态转换图" /></p><ul><li>活跃状态：任何正在执行的事务都在此，操作进入部分提交状态</li><li>部分提交状态：执行上次操作后进入，更改存储在内存中</li><li>提交状态：所有操作执行完后进入此状态，此时不能回滚</li><li>失败状态：发生错误，事务进入终止状态</li><li>终止状态：进行回滚</li></ul><h2 id="事务的特征acid">事务的特征（ACID）</h2><ol type="1"><li>原子性（Atomiocity）：事务的操作要么全都执行要么都不执行</li><li>一致性（Consistency）：数据库从一个一致状态转变为另一个一致状态</li><li>隔离性（Isolation）：并发的事务间相不干扰，相互隔离</li><li>持久性（Durability）：事务一旦提交，影响是持久的</li></ol><h2 id="事务间相互影响">事务间相互影响</h2><p>事务A和事务B操作同一个银行账号，初始余额为0。</p><ul><li>脏读：事务B存入100元，此时事务A查余额，为100，但事务B发生了错误，回滚了，余额又重新变成了0，出现了不一致的情况，此时便说事务A读到了脏数据。</li><li>不可重复读：事务A查余额，为0，事务B存入100元并成功提交，此时事务A再查余额，变成了100，同样的查询得到不同的结果，这就是不可重复读。</li><li>幻读：与不可重复读有点像，但幻读强调的是查询结果为多条数据的场景。A查余额明细，有20条，B存入100元，使得余额明细多了一条，然后提交成功，此时A再查余额明细，得到了21条，这就是幻读。</li><li>丢失更新：事务A和B同时开始，A存入100元，B存入50元，A先于B提交成功，此时余额为100，但当B提交成功后，余额变成了50，A对余额的更新就不见了，这就是丢失更新。</li></ul><h2 id="事务的隔离级别">事务的隔离级别</h2><table><colgroup><col style="width: 20%" /><col style="width: 20%" /><col style="width: 20%" /><col style="width: 20%" /><col style="width: 20%" /></colgroup><thead><tr class="header"><th><strong>隔离级别</strong></th><th><strong>读数据一致性</strong></th><th><strong>脏读</strong></th><th><strong>不可重复读</strong></th><th><strong>幻读</strong></th></tr></thead><tbody><tr class="odd"><td><strong>未提交(RU)</strong></td><td>只能保证不读取物理上的损坏</td><td>√</td><td>√</td><td>√</td></tr><tr class="even"><td><strong>已提交(RC)</strong></td><td>语句级</td><td>×</td><td>√</td><td>√</td></tr><tr class="odd"><td><strong>可重复读(RR)</strong></td><td>事务级</td><td>×</td><td>×</td><td>√</td></tr><tr class="even"><td><strong>串行化(SR)</strong></td><td>最高级别，事务级</td><td>×</td><td>×</td><td>×</td></tr></tbody></table><hr /><p>事务A与事务B并发访问数据库：</p><ol type="1"><li>读未提交<br />A可以看到B正在修改而未commit的数据，A读的是实时数据，所以会出现脏读现象。</li><li>读已提交<br />A只能看到B提交后的数据，但是B若多次提交，A读的数据不相同，所以出现幻读现象。</li><li>可重复读（MySQL 默认隔离级别）<br />A只能读到A事务开启前的数据，所以B无论提交多少次，A看到的数据都是不变的，故可以重复读。</li><li>序列化<br />A与B不能并发，只能顺序执行</li></ol><h2 id="代码">代码</h2><h3 id="正常流程">正常流程</h3><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">START</span> <span class="token keyword">TRANSACTION</span><span class="token punctuation">;</span><span class="token keyword">DELETE</span> <span class="token keyword">FROM</span> orderitems <span class="token keyword">WHERE</span> order_num <span class="token operator">=</span> <span class="token number">20010</span><span class="token punctuation">;</span><span class="token keyword">DELETE</span> <span class="token keyword">FROM</span> orders <span class="token keyword">WHERE</span> order_num <span class="token operator">=</span> <span class="token number">20010</span><span class="token punctuation">;</span><span class="token keyword">COMMIT</span><span class="token punctuation">;</span><span class="token comment"># 或</span><span class="token keyword">ROLLBACK</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><blockquote><p>注：当 <code>COMMIT</code> 或 <code>ROLLBACK</code>后，事务会自动关闭</p></blockquote><h3 id="保留点">保留点</h3><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SAVEPOINT</span> delete1<span class="token punctuation">;</span><span class="token keyword">ROLLBACK</span> <span class="token keyword">TO</span> delete1<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h3 id="自动提交">自动提交</h3><p><img src="2.png" alt="自动提交" /></p><p><code>SET autocommit=0;</code> 来取消自动提交，所谓自动提交就是不使用<code>COMMIT</code> 就直接将数据更改到数据库，而不通过内存</p><h2 id="哪些语句可以回退">哪些语句可以回退？</h2><p>DML（Data Manipulation Language） 语句： INSERT, UPDATE, DELETE</p><blockquote><p>注：回退 SELECT 没有意义，而 CREATE, DROP, TRUNCATE 属于 DDL都不能回退</p></blockquote><h2 id="如何实现事务的-acid-特性">如何实现事务的 ACID 特性</h2><ul><li>归档日志 bin log</li><li>回滚日志 undo log</li><li>重做日志 redo log</li></ul><hr /><ul><li>原子性：通过 undo log 记录 sql 操作，当发生回滚，逆序逆操作</li><li>持久性：bin log &amp; redo log</li><li>一致性：bin log</li><li>隔离性：事务的隔离级别，通过锁机制及 MVCC 来实现</li></ul><h2 id="参考">参考</h2><p><ahref="https://www.cnblogs.com/kismetv/p/10331633.html">深入学习MySQL事务：ACID特性的实现原理</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 数据库 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>数据库存储引擎对比</title>
       <link href="/posts/shu-ju-ku-cun-chu-yin-qing-dui-bi/"/>
       <url>/posts/shu-ju-ku-cun-chu-yin-qing-dui-bi/</url>
