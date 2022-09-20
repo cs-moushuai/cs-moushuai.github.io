@@ -6,7 +6,7 @@
   <link href="https://cs-moushuai.github.io/atom.xml" rel="self"/>
   
   <link href="https://cs-moushuai.github.io/"/>
-  <updated>2022-09-17T04:04:27.814Z</updated>
+  <updated>2022-09-20T10:25:18.651Z</updated>
   <id>https://cs-moushuai.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C++ 为何构造函数和析构函数中不能调用虚函数？</title>
+    <link href="https://cs-moushuai.github.io/posts/c-wei-he-gou-zao-han-shu-he-xi-gou-han-shu-zhong-bu-neng-diao-yong-xu-han-shu/"/>
+    <id>https://cs-moushuai.github.io/posts/c-wei-he-gou-zao-han-shu-he-xi-gou-han-shu-zhong-bu-neng-diao-yong-xu-han-shu/</id>
+    <published>2022-09-20T01:41:01.000Z</published>
+    <updated>2022-09-20T10:25:18.651Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
+&lt;p&gt;之前看过很多书都提到</summary>
+        
+      
+    
+    
+    
+    
+    <category term="C++" scheme="https://cs-moushuai.github.io/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>数据库锁详解</title>
