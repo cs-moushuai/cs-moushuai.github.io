@@ -344,14 +344,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    516
+                    872
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    3 分
                 </div>
                 
 
@@ -377,11 +377,12 @@
                 <h2 id="前言">前言</h2>
 <p>之前看过很多书都提到 C++
 在构造函数和析构函数中不能调用虚函数，但当时的原因记得是<strong><em>构造时没有虚函数指针，析构时虚函数指针已经析构了，所以不能调用</em></strong>，现在想来似乎有些问题，毕竟虚函数指针初始化可以在调用语句前，析构可以先调用，最后才析构</p>
-<p>接下来将详细的介绍具体的原因</p>
 <blockquote>
 <p>以下用 ctor(constructor) 代替构造函数，dtor(destructor)
 代替析构函数</p>
 </blockquote>
+<p>接下来将详细的介绍具体的原因，顺便介绍下是否可以将 ctor 和 dtor
+声明为虚函数</p>
 <h2 id="例子">例子</h2>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -416,6 +417,28 @@ Base 的对象时就该把它当成 Base 来构造，而不该还牵扯到 Deriv
 <p>同理也对应于析构函数，Base 析构前 Derived 就已经析构了</p>
 <p>构造析构顺序可以看<a
 href="https://cs-moushuai.github.io/posts/c-gou-zao-he-xi-gou-de-shun-xu/">这里</a></p>
+<h2 id="总结">总结</h2>
+<ul>
+<li>根据《Effective C++》的条款
+09：绝不在构造和析构过程中调用虚函数可知，在构造函数中虽然可以调用虚函数，但是强烈建议不要这样做。因为基类的构造的过程中，虚函数不能算作是虚函数。若构造函数中调用虚函数，可能会导致不确定行为的发生。</li>
+</ul>
+<p>ctor：</p>
+<ul>
+<li>虚函数对应一个 vtable(虚函数表)，类中存储一个 vptr 指向这个
+vtable。如果 ctor 是虚函数，就需要通过 vtable
+调用，可是对象没有初始化就没有 vptr，无法找到 vtable，所以 ctor
+不能是虚函数。</li>
+</ul>
+<p>dtor：</p>
+<ul>
+<li>dtor 为虚函数，并且一般情况下基类 dtor
+要定义为虚函数，非基类没有必要，因为会降低性能。</li>
+<li>只有在基类 dtor 定义为虚函数时，调用操作符 delete
+销毁指向对象的基类指针时，才能准确调用派生类的析构函数（从该级向上按序调用虚函数），才能准确销毁数据，否则只会析构基类的
+dtor</li>
+<li>dtor
+可以是纯虚函数，含有纯虚函数的类是抽象类，此时不能被实例化。但派生类中可以根据自身需求重新改写基类中的纯虚函数。</li>
+</ul>
 <h2 id="参考">参考</h2>
 <ul>
 <li>《Effective C++》条款 9：绝不在构造和析构过程中调用 virtual
@@ -428,6 +451,8 @@ target="_blank" rel="noopener" href="https://isocpp.org/wiki/faq/strange-inherit
 my base class’s constructor calls a virtual function on its this object,
 why doesn’t my derived class’s override of that virtual function get
 invoked?</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://interviewguide.cn/notes/03-hunting_job/02-interview/01-05-01-other.html#_3%E3%80%81%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E8%83%BD%E5%90%A6%E5%A3%B0%E6%98%8E%E4%B8%BA%E8%99%9A%E5%87%BD%E6%95%B0%E6%88%96%E8%80%85%E7%BA%AF%E8%99%9A%E5%87%BD%E6%95%B0-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E5%91%A2">阿秀的笔记</a></li>
 </ul>
 
                 
@@ -881,7 +906,7 @@ invoked?</a></li>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">13.8k</span>
+                        class="white-color">14.1k</span>
             
             
             
