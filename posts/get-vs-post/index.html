@@ -4,15 +4,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="数据库索引详解, Moushuai">
-    <meta name="description" content="
-什么是索引？
-正常使用 select
-需要对表中所有元素进行遍历，效率极低，而索引是对数据库中列进行有序化的数据结构，使用其可以快速访问特定信息
-索引优点
-
-通过创建唯一性索引，可以保证数据库表中每一行数据的唯一性；
-可以加快数据的检索速">
+    <meta name="keywords" content="GET vs POST, Moushuai">
+    <meta name="description" content="前言
+GET 和 POST 都是 HTTP
+最常用的两种方法，两者在计算机网络中都有着举足轻重的地位，也有很多关于安全性，便利性方面的讨论
+本篇文章，笔者会详尽的讨论两者的方方面面
+GET
+GET 用来获取资源
+GET 方法简约版报文是这样">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -35,7 +34,7 @@
 </script>
 
 
-    <title>数据库索引详解 | Moushuai</title>
+    <title>GET vs POST | Moushuai</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -290,12 +289,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">数据库索引详解</h1>
+                    <h1 class="description center-align post-title">GET vs POST</h1>
                 </div>
             </div>
         </div>
@@ -319,8 +318,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                                <span class="chip bg-color">数据库</span>
+                            <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                                <span class="chip bg-color">网络</span>
                             </a>
                         
                     </div>
@@ -335,28 +334,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-09-06
+                    2022-09-21
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-09-07
+                    2022-09-21
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.6k
+                    867
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    3 分
                 </div>
                 
 
@@ -379,173 +378,122 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="1.png" alt="总纲" /></p>
-<h2 id="什么是索引">什么是索引？</h2>
-<p>正常使用 <code>select</code>
-需要对表中所有元素进行遍历，效率极低，而索引是对数据库中列进行有序化的数据结构，使用其可以快速访问特定信息</p>
-<h2 id="索引优点">索引优点</h2>
-<ul>
-<li>通过创建<strong>唯一性索引</strong>，可以保证数据库表中每一行数据的唯一性；</li>
-<li>可以加快数据的<strong>检索速度</strong>，这也是创建索引的主要原因；</li>
-<li>可以加速表和表之间的连接，特别是在实现<strong>数据的参考完整性</strong>方面特别有意义；</li>
-<li>通过使用索引，可以在查询的过程中，使用<strong>优化隐藏器</strong>，提高系统性能。</li>
-</ul>
-<h2 id="索引缺点">索引缺点</h2>
-<ul>
-<li>时间上，创建和维护索引都要耗费时间，这种时间随着数据量的增加而增加，具体地，当对表中的数据进行增加、删除和修改的时候，索引也要动态的维护，这样就降低了数据的维护速度；</li>
-<li>空间上，索引需要占<strong>物理空间</strong>，除了数据表占数据空间之外，每一个索引还要占一定的物理空间，如果要建立聚簇索引，那么需要的空间就会更大。</li>
-</ul>
-<h2 id="按数据结构分类">按数据结构分类</h2>
-<p><img src="2.png" alt="存储引擎支持索引类别" /></p>
+                <h2 id="前言">前言</h2>
+<p>GET 和 POST 都是 HTTP
+最常用的两种方法，两者在计算机网络中都有着举足轻重的地位，也有很多关于安全性，便利性方面的讨论</p>
+<p>本篇文章，笔者会详尽的讨论两者的方方面面</p>
+<h2 id="get">GET</h2>
+<p>GET 用来获取资源</p>
+<p>GET 方法简约版报文是这样的</p>
+<pre class="line-numbers language-http" data-language="http"><code class="language-http"><span class="token request-line"><span class="token method property">GET</span> <span class="token request-target url">/index.html?name=qiming.c&amp;age=22</span> <span class="token http-version property">HTTP/1.1</span></span>
+<span class="token header"><span class="token header-name keyword">Host</span><span class="token punctuation">:</span> <span class="token header-value">localhost</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="post">POST</h2>
+<p>POST 用来传递数据给服务器处理</p>
+<p>POST 方法简约版报文是这样的</p>
+<pre class="line-numbers language-http" data-language="http"><code class="language-http"><span class="token request-line"><span class="token method property">POST</span> <span class="token request-target url">/index.html</span> <span class="token http-version property">HTTP/1.1</span></span>
+<span class="token header"><span class="token header-name keyword">Host</span><span class="token punctuation">:</span> <span class="token header-value">localhost</span></span>
+<span class="token header"><span class="token header-name keyword">Content-Type</span><span class="token punctuation">:</span> <span class="token header-value">application/x-www-form-urlencoded</span></span>
+
+name=qiming.c&amp;age=22<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="区别">区别</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>GET</th>
+<th>POST</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>后退按钮/刷新</td>
+<td>无害</td>
+<td>数据会被重新提交（浏览器应该告知用户数据会被重新提交）</td>
+</tr>
+<tr class="even">
+<td>书签</td>
+<td>可收藏为书签</td>
+<td>不可收藏为书签</td>
+</tr>
+<tr class="odd">
+<td>缓存</td>
+<td>能被缓存</td>
+<td>不能缓存</td>
+</tr>
+<tr class="even">
+<td>编码类型</td>
+<td>application/x-www-form-urlencoded</td>
+<td>application/x-www-form-urlencoded or
+multipart/form-data。为二进制数据使用多重编码</td>
+</tr>
+<tr class="odd">
+<td>历史</td>
+<td>参数保留在浏览器历史中</td>
+<td>参数不会保存在浏览器历史中</td>
+</tr>
+<tr class="even">
+<td>对数据长度的限制</td>
+<td>是的，当发送数据时，GET 方法向 URL 添加数据；URL
+的长度是受限制的（URL 的最大长度是 2048 个字符）</td>
+<td>无限制</td>
+</tr>
+<tr class="odd">
+<td>对数据类型的限制</td>
+<td>只允许 ASCII 字符</td>
+<td>没有限制。也允许二进制数据</td>
+</tr>
+<tr class="even">
+<td>安全性</td>
+<td>与 POST 相比，GET 的安全性较差，因为所发送的数据是 URL
+的一部分。在发送密码或其他敏感信息时绝不要使用 GET ！</td>
+<td>POST 比 GET 更安全，因为参数不会被保存在浏览器历史或 web
+服务器日志中</td>
+</tr>
+<tr class="odd">
+<td>可见性</td>
+<td>数据在 URL 中对所有人都是可见的</td>
+<td>数据不会显示在 URL 中</td>
+</tr>
+</tbody>
+</table>
+<h2 id="安全性">安全性</h2>
+<p>POST 比 GET 安全，因为数据在 URL 上不可见，不用担心被缓存，存储在本地
+history 中...</p>
+<p>但从传输的角度来说，他们都不安全，因为 HTTP
+明文的特性，只要抓包就能知道所有信息</p>
+<p>只有使用 HTTPS 才安全</p>
+<h2 id="便携性">便携性</h2>
+<p>GET 可以作为书签，可以保存在 history 中便于下一次输入</p>
+<p>GET 回退没有任何问题，POST 回退会再次提交</p>
+<p>GET 会被缓存，POST 不会</p>
+<h2 id="发送方式">发送方式</h2>
+<p>对于 GET 方式的请求，浏览器会把 http header 和 data
+一并发送出去，服务器响应 200（返回数据）</p>
+<p>对于 POST，浏览器先发送 header，服务器响应 100 continue，浏览器再发送
+data，服务器响应 200 ok</p>
 <blockquote>
-<p>注：InnoDB实际上也支持Hash索引，但是InnoDB中Hash索引的创建由存储引擎引擎自动优化创建，不能人为干预是否为表创建Hash索引</p>
+<p>实际测试很多浏览器 POST 也只发一次</p>
 </blockquote>
-<h3 id="btree-索引">BTREE 索引</h3>
-<p>B 树也称 B-
-树，它是一颗多路平衡查找树，相较于红黑树这种平衡树，其树的高度更低，这也意味着磁盘
-IO 的次数更少</p>
-<p>B+ 树是其的 plus 版本，常用于数据库索引（InnoDB 默认），具有 B
-树的平衡性，同时节点间通过双向链表提高了区间查询的性能</p>
-<p>B+tree 非叶子节点只存储键值信息，
-数据记录都存放在叶子节点中。而B-tree的非叶子节点也存储数据。所以 B+tree
-单个节点的数据量更小，在相同的磁盘I/O次数下，能查询更多的节点。</p>
-<h3 id="位图索引">位图索引</h3>
-<p>适用于字段取值范围小的情况，如：性别，婚姻状况</p>
-<ul>
-<li>不使用索引<br />
-不使用索引时，数据库只能一行行扫描所有记录，然后判断该记录是否满足查询条件。</li>
-<li>BTREE 索引<br />
-对于性别，可取值的范围只有'男','女'，并且男和女可能各站该表的50%的数据，这时添加B树索引还是需要取出一半的数据，
-因此完全没有必要。相反，如果某个字段的取值范围很广，几乎没有重复，比如身份证号，此时使用B树索引较为合适。事实上，当取出的行数据占用表中大部分的数据时，即使添加了B树索引，数据库如oracle、mysql也不会使用B树索引，很有可能还是一行行全部扫描。</li>
-</ul>
-<p>那位图索引呢，通过位向量形式表示</p>
-<p>性别：</p>
-<p><img src="3.png" alt="性别位图" /></p>
-<p>其中 1 表示为男，否则为女，则位图索引生成两个向量</p>
-<p>男向量：10100</p>
-<p>女向量：01011</p>
-<p>对于婚姻状况这一列，位图索引生成三个向量，已婚为11000...，未婚为00100...，离婚为00010...</p>
-<p><img src="4.png" alt="婚姻状况" /></p>
-<p><code>select * from &lt;table&gt; where gender="男" and marriage="未婚"</code></p>
-<p>取出男向量 10100，未婚向量 00100 进行 AND 操作，结果为
-00100，第三行为结果</p>
-<h3 id="hash-索引">hash 索引</h3>
-<p>哈希索引通过 hash
-算法（直接定址法，平方取中法，折叠法，除数取余法，随机数法）将数据转换为
-hash 的 key，对应的 value 为数据，MySQL 中只有 Memory
-引擎显式的支持哈希索引，这也是Memory引擎表的默认索引结构，Memory同时也支持B-Tree索引。并且，Memory引擎支持非唯一哈希索引，当发生
-hash 冲突时，使用拉链法解决</p>
-<p>InnoBD引擎有一个特殊的功能叫“自适应哈希索引”。当InnoDB注意到某些索引值被使用得非常频繁时，它会在内存中基于B-Tree索引之上再创建一个哈希索引，这样就让B-Tree索引也具有哈希索引的一些优点，比如快速的哈希查找。但这是一个完全自动的、内部的行为，用于无法控制，但用户可以选择完全关闭该动能。</p>
-<p>在使用InnoBD引擎时，我们可以在B-Tree的基础上创建一个伪哈希索引。当然这不是真正的哈希索引，因为还是使用的B-Tree进行查找，但它使用哈希值而不是键本身进行索引查找。</p>
-<p>例如，如果需要存储大量的URL并且需要根据URL进行查找，如果使用B-Tree来存储URL，则存储的内容就会很大，因为URL本身就很长。为此，我们可以单独指定一个哈希列并为该列创建索引，并选择一个哈希函数！每次存储、变更URL时，对该URL应用一个函数计算出一个哈希值，存入对应的哈希列中。</p>
-<p>在查询时，如果采用体积很小的基于哈希值的索引来查找，则性能会提升很多，唯一的缺点就是需要调用一个哈希函数，为此我们可以使用触发器来实现。</p>
-<p>如果出现了哈希冲突，则查询会返回多行数据，为此在查询时还必须带上真正的URL常量值。正确的查询语句为：</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span> xx <span class="token keyword">from</span> url
-<span class="token keyword">where</span> url_hash <span class="token operator">=</span> <span class="token keyword">hash</span><span class="token punctuation">(</span><span class="token string">'https://www.baidu.com/'</span><span class="token punctuation">)</span> <span class="token operator">AND</span> url <span class="token operator">=</span> <span class="token string">'https://www.baidu.com/'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h4 id="优点">优点</h4>
-<p>查询速度极快，平均为 <span
-class="math inline">\(\mathcal{O}(1)\)</span></p>
-<h4 id="缺点">缺点</h4>
-<ol type="1">
-<li>只能用于等值查询，如 =, !=,
-IN，由于本身的数据结构，像范围查询（BETWEEN），模糊查询（LIKE）都是用不了的</li>
-<li>不能排序，哈希表是无序的</li>
-<li>不支持部分索引列查询，如对（A，B）建立索引，若查询只有
-A，则无法用索引</li>
-<li>仍需要回表查询<br />
-由于可能发生哈希冲突，需要将数据与数据库中的数据比较</li>
-<li>哈希表负载因子高了，性能会降低</li>
-</ol>
-<p>所以其使用场景很小</p>
-<h2 id="按物理存储分类">按物理存储分类</h2>
-<p><strong>区别：</strong>聚簇索引节点存放行记录数据，而非聚簇索引存放指针</p>
-<h3 id="聚簇索引">聚簇索引</h3>
-<p>也称聚集索引，根据每张表的主键构造一颗 B+
-树，叶子结点存放行记录数据<br />
-InnoDB
-表要求必须有聚簇索引，默认在主键字段上建立聚簇索引，在没有主键字段的情况下，表的第一个非空的唯一索引将被建立为聚簇索引，在前两者都没有的情况下，InnoDB
-将自动生成一个隐式的自增 id 列，并在此列上建立聚簇索引。 以 MyISAM
-为存储引擎的表不存在聚簇索引。</p>
-<p><strong>优点：</strong></p>
-<ol type="1">
-<li>速度快，因为其将数据直接存在结点上，少了一次查询</li>
-<li>数据逻辑上连续（物理上不连续），区间查询很快<br />
-页间使用双向链表，页内使用单向链表来实现顺序性</li>
-</ol>
-<h3 id="非聚簇索引">非聚簇索引</h3>
-<p>也称二级索引，辅助索引，叶子结点存放的是数据的指针</p>
-<h2 id="按字段特性分类">按字段特性分类</h2>
-<h3 id="普通索引">普通索引</h3>
-<p>普通索引就是最最基础的索引，这种索引没有任何的约束作用，它存在的主要意义就是提高查询效率。</p>
-<h3 id="唯一性索引">唯一性索引</h3>
-<p>在普通索引的基础上加上唯一性约束</p>
-<h3 id="主键索引">主键索引</h3>
-<p>在唯一性索引的基础上加上非空约束</p>
-<h3 id="全文索引">全文索引</h3>
-<p>对内容进行分词， MySQL 中少用（5.6 版本后支持）</p>
-<h3 id="前缀索引">前缀索引</h3>
-<p>对字符类型字段的前几个字符或 bytes
-建立索引，而不是整个字段，大大减少索引占用空间，也提高了查找效率，关键在于建立多长的前缀使得查到的数据冲突少，但同时也会带来空间的开销</p>
-<h2 id="按字段个数分类">按字段个数分类</h2>
-<h3 id="单列索引">单列索引</h3>
-<p>对单个列进行索引</p>
-<h3 id="联合索引">联合索引</h3>
-<p>对多个列进行索引，又称复合索引，组合索引，使用最左前缀原则匹配</p>
-<p><strong>最左前缀原则</strong>：</p>
-<p>进行匹配，必须按照组合索引从左往右添加 <code>where</code>
-条件，当遇到范围查询，如：&lt;, &gt;, between, like 等就会停止匹配</p>
-<ol type="1">
-<li>像对 (a, b, c) 建立索引，查询条件 a / ab / abc 会走索引，使用 bc
-不会索引<br />
-因为 <code>a</code> 全局有序，<code>b</code> 是局部有序，只有
-<code>a</code> 确定了，<code>b</code> 才能有序</li>
-<li>如 <code>where a=1 and b&gt;2 and c=3</code> 时，<code>b</code>
-进行了范围查找，此时 <code>c</code> 用不了索引</li>
-</ol>
-<h2 id="覆盖索引的情况">覆盖索引的情况</h2>
-<p>当数据在二级索引且为联合索引中找到时，不需要回表查询，
-可以用Explain命令查看SQL语句的执行计划，执行计划的Extra字段中若出现Using
-index，表示查询触发了索引覆盖。</p>
-<p>如：</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token identifier"><span class="token punctuation">`</span>student<span class="token punctuation">`</span></span> <span class="token punctuation">(</span>
-  <span class="token identifier"><span class="token punctuation">`</span>id<span class="token punctuation">`</span></span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">AUTO_INCREMENT</span> <span class="token keyword">COMMENT</span> <span class="token string">'自增主键'</span><span class="token punctuation">,</span>
-  <span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span> <span class="token keyword">COLLATE</span> utf8_bin <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">COMMENT</span> <span class="token string">'名称'</span><span class="token punctuation">,</span>
-  <span class="token identifier"><span class="token punctuation">`</span>age<span class="token punctuation">`</span></span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token keyword">unsigned</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token string">'1'</span> <span class="token keyword">COMMENT</span> <span class="token string">'年龄'</span><span class="token punctuation">,</span>
-  <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>id<span class="token punctuation">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token keyword">KEY</span> <span class="token identifier"><span class="token punctuation">`</span>I_name<span class="token punctuation">`</span></span> <span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>name<span class="token punctuation">`</span></span><span class="token punctuation">)</span>
-<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">InnoDB</span><span class="token punctuation">;</span>
-
-<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> student <span class="token punctuation">(</span>name<span class="token punctuation">,</span> age<span class="token punctuation">)</span> <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token string">"小赵"</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">"小王"</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">"小李"</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">"小陈"</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> student <span class="token keyword">ADD</span> <span class="token keyword">INDEX</span> I_name_age<span class="token punctuation">(</span>name<span class="token punctuation">,</span> age<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">SELECT</span> age <span class="token keyword">FROM</span> student <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'小李'</span>；<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><code>name, age</code> 组成联合索引，<code>where</code> 中对
-<code>name</code> 进行查找，<code>select</code> 返回
-<code>age</code>，其存在于联合索引，不需要回表，故为覆盖索引</p>
-<h2 id="什么时候不该建立索引">什么时候不该建立索引？</h2>
-<p>索引虽好，但由于本身会带来空间上的开销，增删改操作也会变慢，所以有一些情况不适合建立索引</p>
-<ol type="1">
-<li>where 条件中用不到的字段不适合</li>
-<li>表记录很少只有几百条</li>
-<li>需要经常增删改，需要评估是否适合加索引</li>
-<li>参与列计算的列不适合</li>
-<li>区分度不高的字段不适合，如：性别（男，女，未知三个值），加了索引效率也不会太高，<code>select</code>
-会有多个值<br />
-ps：可以使用位图索引</li>
-</ol>
+<h2 id="幂等性idempotent">幂等性（Idempotent）</h2>
+<p>幂等的概念是指同一个请求方法执行多次和仅执行一次的效果完全相同。</p>
+<p>按照RFC规范，PUT，DELETE和安全方法都是幂等的。同样，这也仅仅是规范，服务端实现是否幂等是无法确保的。引入幂等主要是为了处理同一个请求重复发送的情况，比如在请求响应前失去连接，如果方法是幂等的，就可以放心地重发一次请求。这也是浏览器在后退/刷新时遇到POST会给用户提示的原因：POST语义不是幂等的，重复请求可能会带来意想不到的后果。</p>
 <h2 id="参考">参考</h2>
-<p><a
-target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43767015/article/details/119346481">MySQL哈希索引的数据结构以及索引的优缺点</a></p>
-<p><a
-target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000037683781">MySQL索引有哪些分类，你真的清楚吗？</a></p>
-<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020416577">B 树，B+
-树详解</a></p>
-<p><a
-target="_blank" rel="noopener" href="https://juejin.cn/post/7078512620289916964">主键索引就是聚集索引？MySQL
-索引类型大梳理</a></p>
-<p><a
-target="_blank" rel="noopener" href="https://www.cnblogs.com/lbser/p/3322630.html">位图（BitMap）索引</a></p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://www.w3schools.com/tags/ref_httpmethods.asp">w3schools http
+methods</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://github.com/febobo/web-interview/issues/145">面试官：说一下
+GET 和 POST 的区别？</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://www.zhihu.com/question/28586791/answer/767316172">GET 和
+POST 到底有什么区别？ - 大宽宽的回答 - 知乎</a></li>
+</ul>
 
                 
             </div>
@@ -572,7 +520,7 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/lbser/p/3322630.htm
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://cs-moushuai.github.io/posts/shu-ju-ku-suo-yin-xiang-jie/">https://cs-moushuai.github.io/posts/shu-ju-ku-suo-yin-xiang-jie/</a>
+                    <a href="https://cs-moushuai.github.io/posts/get-vs-post/">https://cs-moushuai.github.io/posts/get-vs-post/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -610,8 +558,8 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/lbser/p/3322630.htm
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                                    <span class="chip bg-color">数据库</span>
+                                <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                                    <span class="chip bg-color">网络</span>
                                 </a>
                             
                         </div>
@@ -689,7 +637,7 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/lbser/p/3322630.htm
         repo: 'cs-moushuai.github.io',
         owner: 'cs-moushuai',
         admin: "cs-moushuai",
-        id: '2022-09-06T10-02-58',
+        id: '2022-09-21T03-35-29',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -719,17 +667,18 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/lbser/p/3322630.htm
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/posts/shu-ju-ku-cun-chu-yin-qing-dui-bi/">
+                <a href="/posts/get-vs-post/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="数据库存储引擎对比">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="GET vs POST">
                         
-                        <span class="card-title">数据库存储引擎对比</span>
+                        <span class="card-title">GET vs POST</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -739,9 +688,9 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/lbser/p/3322630.htm
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-09-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -750,11 +699,12 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/lbser/p/3322630.htm
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                        <span class="chip bg-color">数据库</span>
+                    <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">网络</span>
                     </a>
                     
                 </div>
@@ -768,13 +718,13 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/lbser/p/3322630.htm
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/c-gou-zao-he-xi-gou-de-shun-xu/">
+                <a href="/posts/c-wei-he-gou-zao-han-shu-he-xi-gou-han-shu-zhong-bu-neng-diao-yong-xu-han-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="C++ 构造和析构的顺序">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="C++ 为何构造函数和析构函数中不能调用虚函数？">
                         
-                        <span class="card-title">C++ 构造和析构的顺序</span>
+                        <span class="card-title">C++ 为何构造函数和析构函数中不能调用虚函数？</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -785,7 +735,7 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/lbser/p/3322630.htm
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-20
                             </span>
                         <span class="publish-author">
                             
@@ -923,13 +873,6 @@ target="_blank" rel="noopener" href="https://www.cnblogs.com/lbser/p/3322630.htm
 
 </main>
 
-
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-    });
-</script>
 
 
 

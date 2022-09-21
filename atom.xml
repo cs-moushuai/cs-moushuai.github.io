@@ -6,7 +6,7 @@
   <link href="https://cs-moushuai.github.io/atom.xml" rel="self"/>
   
   <link href="https://cs-moushuai.github.io/"/>
-  <updated>2022-09-20T10:35:49.270Z</updated>
+  <updated>2022-09-21T04:08:03.628Z</updated>
   <id>https://cs-moushuai.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>GET vs POST</title>
+    <link href="https://cs-moushuai.github.io/posts/get-vs-post/"/>
+    <id>https://cs-moushuai.github.io/posts/get-vs-post/</id>
+    <published>2022-09-20T19:35:29.000Z</published>
+    <updated>2022-09-21T04:08:03.628Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
+&lt;p&gt;GET 和 POST 都是 HTTP
+最常用的两种方法，两者在计算机网络中都有着举足轻重的地位，也有很多关于安全性，便利性方面的讨论&lt;/p&gt;
+&lt;p&gt;本篇文章，笔者会详尽的讨论两者的方方面面&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="网络" scheme="https://cs-moushuai.github.io/tags/%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
   
   <entry>
     <title>C++ 为何构造函数和析构函数中不能调用虚函数？</title>

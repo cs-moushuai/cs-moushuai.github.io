@@ -1,3 +1,4 @@
+https://cs-moushuai.github.io/posts/get-vs-post/
 https://cs-moushuai.github.io/posts/c-wei-he-gou-zao-han-shu-he-xi-gou-han-shu-zhong-bu-neng-diao-yong-xu-han-shu/
 https://cs-moushuai.github.io/posts/shu-ju-ku-suo-xiang-jie/
 https://cs-moushuai.github.io/posts/shu-ju-ku-shi-wu-guan-li-xiang-jie/

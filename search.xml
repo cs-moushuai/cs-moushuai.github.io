@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>GET vs POST</title>
+      <link href="/posts/get-vs-post/"/>
+      <url>/posts/get-vs-post/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言">前言</h2><p>GET 和 POST 都是 HTTP最常用的两种方法，两者在计算机网络中都有着举足轻重的地位，也有很多关于安全性，便利性方面的讨论</p><p>本篇文章，笔者会详尽的讨论两者的方方面面</p><h2 id="get">GET</h2><p>GET 用来获取资源</p><p>GET 方法简约版报文是这样的</p><pre class="line-numbers language-http" data-language="http"><code class="language-http"><span class="token request-line"><span class="token method property">GET</span> <span class="token request-target url">/index.html?name=qiming.c&amp;age=22</span> <span class="token http-version property">HTTP/1.1</span></span><span class="token header"><span class="token header-name keyword">Host</span><span class="token punctuation">:</span> <span class="token header-value">localhost</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h2 id="post">POST</h2><p>POST 用来传递数据给服务器处理</p><p>POST 方法简约版报文是这样的</p><pre class="line-numbers language-http" data-language="http"><code class="language-http"><span class="token request-line"><span class="token method property">POST</span> <span class="token request-target url">/index.html</span> <span class="token http-version property">HTTP/1.1</span></span><span class="token header"><span class="token header-name keyword">Host</span><span class="token punctuation">:</span> <span class="token header-value">localhost</span></span><span class="token header"><span class="token header-name keyword">Content-Type</span><span class="token punctuation">:</span> <span class="token header-value">application/x-www-form-urlencoded</span></span>name=qiming.c&amp;age=22<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="区别">区别</h2><table><colgroup><col style="width: 33%" /><col style="width: 33%" /><col style="width: 33%" /></colgroup><thead><tr class="header"><th></th><th>GET</th><th>POST</th></tr></thead><tbody><tr class="odd"><td>后退按钮/刷新</td><td>无害</td><td>数据会被重新提交（浏览器应该告知用户数据会被重新提交）</td></tr><tr class="even"><td>书签</td><td>可收藏为书签</td><td>不可收藏为书签</td></tr><tr class="odd"><td>缓存</td><td>能被缓存</td><td>不能缓存</td></tr><tr class="even"><td>编码类型</td><td>application/x-www-form-urlencoded</td><td>application/x-www-form-urlencoded ormultipart/form-data。为二进制数据使用多重编码</td></tr><tr class="odd"><td>历史</td><td>参数保留在浏览器历史中</td><td>参数不会保存在浏览器历史中</td></tr><tr class="even"><td>对数据长度的限制</td><td>是的，当发送数据时，GET 方法向 URL 添加数据；URL的长度是受限制的（URL 的最大长度是 2048 个字符）</td><td>无限制</td></tr><tr class="odd"><td>对数据类型的限制</td><td>只允许 ASCII 字符</td><td>没有限制。也允许二进制数据</td></tr><tr class="even"><td>安全性</td><td>与 POST 相比，GET 的安全性较差，因为所发送的数据是 URL的一部分。在发送密码或其他敏感信息时绝不要使用 GET ！</td><td>POST 比 GET 更安全，因为参数不会被保存在浏览器历史或 web服务器日志中</td></tr><tr class="odd"><td>可见性</td><td>数据在 URL 中对所有人都是可见的</td><td>数据不会显示在 URL 中</td></tr></tbody></table><h2 id="安全性">安全性</h2><p>POST 比 GET 安全，因为数据在 URL 上不可见，不用担心被缓存，存储在本地history 中...</p><p>但从传输的角度来说，他们都不安全，因为 HTTP明文的特性，只要抓包就能知道所有信息</p><p>只有使用 HTTPS 才安全</p><h2 id="便携性">便携性</h2><p>GET 可以作为书签，可以保存在 history 中便于下一次输入</p><p>GET 回退没有任何问题，POST 回退会再次提交</p><p>GET 会被缓存，POST 不会</p><h2 id="发送方式">发送方式</h2><p>对于 GET 方式的请求，浏览器会把 http header 和 data一并发送出去，服务器响应 200（返回数据）</p><p>对于 POST，浏览器先发送 header，服务器响应 100 continue，浏览器再发送data，服务器响应 200 ok</p><blockquote><p>实际测试很多浏览器 POST 也只发一次</p></blockquote><h2 id="幂等性idempotent">幂等性（Idempotent）</h2><p>幂等的概念是指同一个请求方法执行多次和仅执行一次的效果完全相同。</p><p>按照RFC规范，PUT，DELETE和安全方法都是幂等的。同样，这也仅仅是规范，服务端实现是否幂等是无法确保的。引入幂等主要是为了处理同一个请求重复发送的情况，比如在请求响应前失去连接，如果方法是幂等的，就可以放心地重发一次请求。这也是浏览器在后退/刷新时遇到POST会给用户提示的原因：POST语义不是幂等的，重复请求可能会带来意想不到的后果。</p><h2 id="参考">参考</h2><ul><li><ahref="https://www.w3schools.com/tags/ref_httpmethods.asp">w3schools httpmethods</a></li><li><ahref="https://github.com/febobo/web-interview/issues/145">面试官：说一下GET 和 POST 的区别？</a></li><li><ahref="https://www.zhihu.com/question/28586791/answer/767316172">GET 和POST 到底有什么区别？ - 大宽宽的回答 - 知乎</a></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 网络 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>C++ 为何构造函数和析构函数中不能调用虚函数？</title>
       <link href="/posts/c-wei-he-gou-zao-han-shu-he-xi-gou-han-shu-zhong-bu-neng-diao-yong-xu-han-shu/"/>
       <url>/posts/c-wei-he-gou-zao-han-shu-he-xi-gou-han-shu-zhong-bu-neng-diao-yong-xu-han-shu/</url>
