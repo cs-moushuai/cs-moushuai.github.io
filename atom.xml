@@ -6,7 +6,7 @@
   <link href="https://cs-moushuai.github.io/atom.xml" rel="self"/>
   
   <link href="https://cs-moushuai.github.io/"/>
-  <updated>2022-09-21T04:08:03.628Z</updated>
+  <updated>2022-09-21T04:30:34.840Z</updated>
   <id>https://cs-moushuai.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://cs-moushuai.github.io/posts/get-vs-post/"/>
     <id>https://cs-moushuai.github.io/posts/get-vs-post/</id>
     <published>2022-09-20T19:35:29.000Z</published>
-    <updated>2022-09-21T04:08:03.628Z</updated>
+    <updated>2022-09-21T04:30:34.840Z</updated>
     
     
       
@@ -38,8 +38,14 @@
     
     
     
+    <category term="Network" scheme="https://cs-moushuai.github.io/categories/Network/"/>
     
-    <category term="网络" scheme="https://cs-moushuai.github.io/tags/%E7%BD%91%E7%BB%9C/"/>
+    
+    <category term="GET" scheme="https://cs-moushuai.github.io/tags/GET/"/>
+    
+    <category term="POST" scheme="https://cs-moushuai.github.io/tags/POST/"/>
+    
+    <category term="HTTP" scheme="https://cs-moushuai.github.io/tags/HTTP/"/>
     
   </entry>
   
@@ -48,7 +54,7 @@
     <link href="https://cs-moushuai.github.io/posts/c-wei-he-gou-zao-han-shu-he-xi-gou-han-shu-zhong-bu-neng-diao-yong-xu-han-shu/"/>
     <id>https://cs-moushuai.github.io/posts/c-wei-he-gou-zao-han-shu-he-xi-gou-han-shu-zhong-bu-neng-diao-yong-xu-han-shu/</id>
     <published>2022-09-20T01:41:01.000Z</published>
-    <updated>2022-09-20T10:35:49.270Z</updated>
+    <updated>2022-09-21T04:28:40.255Z</updated>
     
     
       
@@ -62,8 +68,16 @@
     
     
     
+    <category term="C++ 修炼之路" scheme="https://cs-moushuai.github.io/categories/C-%E4%BF%AE%E7%82%BC%E4%B9%8B%E8%B7%AF/"/>
+    
     
     <category term="C++" scheme="https://cs-moushuai.github.io/tags/C/"/>
+    
+    <category term="构造函数" scheme="https://cs-moushuai.github.io/tags/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/"/>
+    
+    <category term="析构函数" scheme="https://cs-moushuai.github.io/tags/%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/"/>
+    
+    <category term="虚函数" scheme="https://cs-moushuai.github.io/tags/%E8%99%9A%E5%87%BD%E6%95%B0/"/>
     
   </entry>
   
@@ -72,7 +86,7 @@
     <link href="https://cs-moushuai.github.io/posts/shu-ju-ku-suo-xiang-jie/"/>
     <id>https://cs-moushuai.github.io/posts/shu-ju-ku-suo-xiang-jie/</id>
     <published>2022-09-16T18:09:47.000Z</published>
-    <updated>2022-09-17T04:04:27.814Z</updated>
+    <updated>2022-09-21T04:34:18.754Z</updated>
     
     
       
@@ -87,8 +101,12 @@
     
     
     
+    <category term="Database" scheme="https://cs-moushuai.github.io/categories/Database/"/>
     
-    <category term="数据库" scheme="https://cs-moushuai.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="并发编程" scheme="https://cs-moushuai.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    <category term="锁" scheme="https://cs-moushuai.github.io/tags/%E9%94%81/"/>
     
   </entry>
   
@@ -97,7 +115,7 @@
     <link href="https://cs-moushuai.github.io/posts/shu-ju-ku-shi-wu-guan-li-xiang-jie/"/>
     <id>https://cs-moushuai.github.io/posts/shu-ju-ku-shi-wu-guan-li-xiang-jie/</id>
     <published>2022-09-07T19:49:16.000Z</published>
-    <updated>2022-09-08T09:08:44.264Z</updated>
+    <updated>2022-09-21T04:32:54.123Z</updated>
     
     
       
@@ -114,8 +132,12 @@
     
     
     
+    <category term="Database" scheme="https://cs-moushuai.github.io/categories/Database/"/>
     
-    <category term="数据库" scheme="https://cs-moushuai.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="事务处理" scheme="https://cs-moushuai.github.io/tags/%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86/"/>
+    
+    <category term="隔离级别" scheme="https://cs-moushuai.github.io/tags/%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
     
   </entry>
   
@@ -124,7 +146,7 @@
     <link href="https://cs-moushuai.github.io/posts/shu-ju-ku-cun-chu-yin-qing-dui-bi/"/>
     <id>https://cs-moushuai.github.io/posts/shu-ju-ku-cun-chu-yin-qing-dui-bi/</id>
     <published>2022-09-06T23:08:30.000Z</published>
-    <updated>2022-09-14T07:14:16.325Z</updated>
+    <updated>2022-09-21T04:33:13.249Z</updated>
     
     
       
@@ -140,8 +162,10 @@
     
     
     
+    <category term="Database" scheme="https://cs-moushuai.github.io/categories/Database/"/>
     
-    <category term="数据库" scheme="https://cs-moushuai.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="存储引擎" scheme="https://cs-moushuai.github.io/tags/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/"/>
     
   </entry>
   
@@ -150,7 +174,7 @@
     <link href="https://cs-moushuai.github.io/posts/shu-ju-ku-suo-yin-xiang-jie/"/>
     <id>https://cs-moushuai.github.io/posts/shu-ju-ku-suo-yin-xiang-jie/</id>
     <published>2022-09-06T02:02:58.000Z</published>
-    <updated>2022-09-07T09:12:04.058Z</updated>
+    <updated>2022-09-21T04:34:02.477Z</updated>
     
     
       
@@ -165,8 +189,10 @@
     
     
     
+    <category term="Database" scheme="https://cs-moushuai.github.io/categories/Database/"/>
     
-    <category term="数据库" scheme="https://cs-moushuai.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="索引" scheme="https://cs-moushuai.github.io/tags/%E7%B4%A2%E5%BC%95/"/>
     
   </entry>
   
@@ -175,7 +201,7 @@
     <link href="https://cs-moushuai.github.io/posts/c-gou-zao-he-xi-gou-de-shun-xu/"/>
     <id>https://cs-moushuai.github.io/posts/c-gou-zao-he-xi-gou-de-shun-xu/</id>
     <published>2022-09-05T19:08:26.000Z</published>
-    <updated>2022-09-06T03:40:42.236Z</updated>
+    <updated>2022-09-21T04:30:02.711Z</updated>
     
     
       
@@ -189,8 +215,14 @@
     
     
     
+    <category term="C++ 修炼之路" scheme="https://cs-moushuai.github.io/categories/C-%E4%BF%AE%E7%82%BC%E4%B9%8B%E8%B7%AF/"/>
+    
     
     <category term="C++" scheme="https://cs-moushuai.github.io/tags/C/"/>
+    
+    <category term="构造" scheme="https://cs-moushuai.github.io/tags/%E6%9E%84%E9%80%A0/"/>
+    
+    <category term="析构" scheme="https://cs-moushuai.github.io/tags/%E6%9E%90%E6%9E%84/"/>
     
   </entry>
   
@@ -199,7 +231,7 @@
     <link href="https://cs-moushuai.github.io/posts/jiang-shi-jin-cheng-yu-gu-er-jin-cheng/"/>
     <id>https://cs-moushuai.github.io/posts/jiang-shi-jin-cheng-yu-gu-er-jin-cheng/</id>
     <published>2022-09-05T17:01:31.000Z</published>
-    <updated>2022-09-06T02:10:24.299Z</updated>
+    <updated>2022-09-21T04:31:18.417Z</updated>
     
     
       
@@ -215,8 +247,14 @@
     
     
     
+    <category term="OS" scheme="https://cs-moushuai.github.io/categories/OS/"/>
     
-    <category term="操作系统" scheme="https://cs-moushuai.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="C++" scheme="https://cs-moushuai.github.io/tags/C/"/>
+    
+    <category term="僵尸进程" scheme="https://cs-moushuai.github.io/tags/%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B/"/>
+    
+    <category term="孤儿进程" scheme="https://cs-moushuai.github.io/tags/%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B/"/>
     
   </entry>
   
@@ -225,7 +263,7 @@
     <link href="https://cs-moushuai.github.io/posts/qian-tan-wang-luo-i-o/"/>
     <id>https://cs-moushuai.github.io/posts/qian-tan-wang-luo-i-o/</id>
     <published>2022-09-01T06:51:49.000Z</published>
-    <updated>2022-09-07T06:53:14.406Z</updated>
+    <updated>2022-09-21T04:35:13.661Z</updated>
     
     
       
@@ -242,8 +280,20 @@ TCP/IP 隐藏在 Socket</summary>
     
     
     
+    <category term="Network" scheme="https://cs-moushuai.github.io/categories/Network/"/>
     
-    <category term="网络" scheme="https://cs-moushuai.github.io/tags/%E7%BD%91%E7%BB%9C/"/>
+    
+    <category term="IO 多路复用" scheme="https://cs-moushuai.github.io/tags/IO-%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/"/>
+    
+    <category term="同步" scheme="https://cs-moushuai.github.io/tags/%E5%90%8C%E6%AD%A5/"/>
+    
+    <category term="异步" scheme="https://cs-moushuai.github.io/tags/%E5%BC%82%E6%AD%A5/"/>
+    
+    <category term="阻塞" scheme="https://cs-moushuai.github.io/tags/%E9%98%BB%E5%A1%9E/"/>
+    
+    <category term="非阻塞" scheme="https://cs-moushuai.github.io/tags/%E9%9D%9E%E9%98%BB%E5%A1%9E/"/>
+    
+    <category term="Socket" scheme="https://cs-moushuai.github.io/tags/Socket/"/>
     
   </entry>
   
@@ -252,7 +302,7 @@ TCP/IP 隐藏在 Socket</summary>
     <link href="https://cs-moushuai.github.io/posts/c-shi-xian-gao-xing-neng-nei-cun-chi/"/>
     <id>https://cs-moushuai.github.io/posts/c-shi-xian-gao-xing-neng-nei-cun-chi/</id>
     <published>2022-08-25T07:44:42.687Z</published>
-    <updated>2022-08-25T09:33:21.998Z</updated>
+    <updated>2022-09-21T04:44:20.547Z</updated>
     
     
       
@@ -266,10 +316,12 @@ TCP/IP 隐藏在 Socket</summary>
     
     
     
+    <category term="数据结构与算法" scheme="https://cs-moushuai.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
     
     <category term="C++" scheme="https://cs-moushuai.github.io/tags/C/"/>
     
-    <category term="数据结构与算法" scheme="https://cs-moushuai.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    <category term="内存池" scheme="https://cs-moushuai.github.io/tags/%E5%86%85%E5%AD%98%E6%B1%A0/"/>
     
   </entry>
   
@@ -278,7 +330,7 @@ TCP/IP 隐藏在 Socket</summary>
     <link href="https://cs-moushuai.github.io/posts/di-gui-vs-die-dai/"/>
     <id>https://cs-moushuai.github.io/posts/di-gui-vs-die-dai/</id>
     <published>2022-08-24T07:04:36.115Z</published>
-    <updated>2022-08-26T05:31:22.345Z</updated>
+    <updated>2022-09-21T04:44:16.307Z</updated>
     
     
       
@@ -297,8 +349,14 @@ TCP/IP 隐藏在 Socket</summary>
     
     
     
+    <category term="数据结构与算法" scheme="https://cs-moushuai.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
-    <category term="数据结构与算法" scheme="https://cs-moushuai.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="C++" scheme="https://cs-moushuai.github.io/tags/C/"/>
+    
+    <category term="递归" scheme="https://cs-moushuai.github.io/tags/%E9%80%92%E5%BD%92/"/>
+    
+    <category term="迭代" scheme="https://cs-moushuai.github.io/tags/%E8%BF%AD%E4%BB%A3/"/>
     
   </entry>
   
@@ -307,7 +365,7 @@ TCP/IP 隐藏在 Socket</summary>
     <link href="https://cs-moushuai.github.io/posts/li-dian-chi-bao-yang-shou-ce/"/>
     <id>https://cs-moushuai.github.io/posts/li-dian-chi-bao-yang-shou-ce/</id>
     <published>2022-08-23T12:05:07.000Z</published>
-    <updated>2022-08-24T02:36:04.160Z</updated>
+    <updated>2022-09-21T04:36:54.837Z</updated>
     
     
       
@@ -324,10 +382,12 @@ TCP/IP 隐藏在 Socket</summary>
     
     
     
+    <category term="日常生活" scheme="https://cs-moushuai.github.io/categories/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/"/>
+    
     
     <category term="数码" scheme="https://cs-moushuai.github.io/tags/%E6%95%B0%E7%A0%81/"/>
     
-    <category term="日常" scheme="https://cs-moushuai.github.io/tags/%E6%97%A5%E5%B8%B8/"/>
+    <category term="锂电池" scheme="https://cs-moushuai.github.io/tags/%E9%94%82%E7%94%B5%E6%B1%A0/"/>
     
   </entry>
   
