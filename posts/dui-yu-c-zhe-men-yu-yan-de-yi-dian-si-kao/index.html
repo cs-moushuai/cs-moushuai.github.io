@@ -4,12 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="数据库存储引擎对比, Moushuai">
-    <meta name="description" content="存储引擎是什么？
-存储引擎是数据库的核心
+    <meta name="keywords" content="对于 C++ 这门语言的一点思考, Moushuai">
+    <meta name="description" content="
+注：本文部分内容可能引起争议，如有错误，敬请指正
 
-百度百科
-MySQL中的数据用各种不同的技术存储在文件（或者内存）中。这些技术中的每一种技术都使用不同的存储机制、索引技巧、锁定水平并且最终提供广泛的不同的功能和能力。通过选择不同的技术，你能够获">
+第一次正儿八经的学习 C++ 是在 20 年的 3 月，现在已经是 22 年的 12
+月了，差不多快三年的时间，中间来回读了几遍的 C++ Primer 及
+Effective C++，">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -32,7 +33,7 @@ MySQL中的数据用各种不同的技术存储在文件（或者内存）中。
 </script>
 
 
-    <title>数据库存储引擎对比 | Moushuai</title>
+    <title>对于 C++ 这门语言的一点思考 | Moushuai</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -287,12 +288,12 @@ MySQL中的数据用各种不同的技术存储在文件（或者内存）中。
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://s1.ax1x.com/2022/12/11/zhAgUA.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">数据库存储引擎对比</h1>
+                    <h1 class="description center-align post-title">对于 C++ 这门语言的一点思考</h1>
                 </div>
             </div>
         </div>
@@ -316,8 +317,8 @@ MySQL中的数据用各种不同的技术存储在文件（或者内存）中。
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">
-                                <span class="chip bg-color">存储引擎</span>
+                            <a href="/tags/C/">
+                                <span class="chip bg-color">C++</span>
                             </a>
                         
                     </div>
@@ -328,8 +329,8 @@ MySQL中的数据用各种不同的技术存储在文件（或者内存）中。
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Database/" class="post-category">
-                                Database
+                            <a href="/categories/C-%E4%BF%AE%E7%82%BC%E4%B9%8B%E8%B7%AF/" class="post-category">
+                                C++ 修炼之路
                             </a>
                         
                     </div>
@@ -341,28 +342,28 @@ MySQL中的数据用各种不同的技术存储在文件（或者内存）中。
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-09-07
+                    2022-12-10
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-09-21
+                    2022-12-11
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.1k
+                    2.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    8 分
                 </div>
                 
 
@@ -380,210 +381,143 @@ MySQL中的数据用各种不同的技术存储在文件（或者内存）中。
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="存储引擎是什么">存储引擎是什么？</h2>
-<p>存储引擎是数据库的核心</p>
-<blockquote>
-<p><strong>百度百科</strong><br />
-MySQL中的数据用各种不同的技术存储在文件（或者内存）中。这些技术中的每一种技术都使用不同的存储机制、索引技巧、锁定水平并且最终提供广泛的不同的功能和能力。通过选择不同的技术，你能够获得额外的速度或者功能，从而改善你的应用的整体功能。</p>
+                <blockquote>
+<p>注：本文部分内容可能引起争议，如有错误，敬请指正</p>
 </blockquote>
-<h2 id="存储引擎有哪些">存储引擎有哪些</h2>
-<p>使用 <code>SHOW ENGINES;</code> 查看</p>
-<p><img src="1.png" alt="存储引擎一览" /></p>
-<table style="width:100%;">
-<colgroup>
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;"><strong>存储引擎</strong></th>
-<th style="text-align: center;"><strong>MyISAM</strong></th>
-<th style="text-align: center;"><strong>InnoDB</strong></th>
-<th style="text-align: center;"><strong>BDB</strong></th>
-<th style="text-align: center;"><strong>Memory</strong></th>
-<th style="text-align: center;"><strong>Archive</strong></th>
-<th style="text-align: center;"><strong>NDB</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><strong>存储限制</strong></td>
-<td style="text-align: center;">无</td>
-<td style="text-align: center;">64TB</td>
-<td style="text-align: center;">无</td>
-<td style="text-align: center;">有</td>
-<td style="text-align: center;">无</td>
-<td style="text-align: center;">有</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><strong>事务</strong></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">支持</td>
-<td style="text-align: center;">支持</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><strong>锁级别</strong></td>
-<td style="text-align: center;">表锁</td>
-<td style="text-align: center;">行锁</td>
-<td style="text-align: center;">page</td>
-<td style="text-align: center;">表</td>
-<td style="text-align: center;">行</td>
-<td style="text-align: center;">行</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><strong>MVCC（并发控制）</strong></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">支持</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">支持</td>
-<td style="text-align: center;">支持</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><strong>全文索引</strong></td>
-<td style="text-align: center;">支持</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><strong>集群索引</strong></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">支持</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><strong>数据缓存和索引缓存</strong></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">支持</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">支持</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">支持</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><strong>数据压缩</strong></td>
-<td style="text-align: center;">支持</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">支持</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><strong>批量插入速度</strong></td>
-<td style="text-align: center;">高</td>
-<td style="text-align: center;">低</td>
-<td style="text-align: center;">高</td>
-<td style="text-align: center;">高</td>
-<td style="text-align: center;">很高</td>
-<td style="text-align: center;">高</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><strong>集群数据库支持</strong></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">支持</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><strong>外键支持</strong></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">支持</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><strong>适用场景</strong></td>
-<td
-style="text-align: center;">不需要事务的操作；插入、更新少，读取频繁；频繁的统计计算。</td>
-<td
-style="text-align: center;">需要事务的操作；更新数据需要使用行级锁；大数据量读写；大型互联网应用。</td>
-<td style="text-align: center;">类似 InnoDB</td>
-<td
-style="text-align: center;">数据量不大，需要被频繁的访问，而且数据丢失不会对业务产生比较严重的影响。</td>
-<td
-style="text-align: center;">存储引擎基本上用于数据归档，作为日志表</td>
-<td style="text-align: center;">集群</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><strong>特点</strong></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td
-style="text-align: center;">可替代InnoDB的事务引擎，支持COMMIT、ROLLBACK和其他事务特性</td>
-<td
-style="text-align: center;">数据存储在内存中，重启或崩溃，数据消失，使用哈希索引</td>
-<td
-style="text-align: center;">只支持Insert和Select操作，支持索引，非常适合存储归档数据，
-目标：高速插入和压缩功能</td>
-<td
-style="text-align: center;">集群存储引擎，数据全部放在内存中，高可用、高性能的集群系统</td>
-</tr>
-</tbody>
-</table>
-<p><img src="2.png" alt="适用场景" /></p>
+<p>第一次正儿八经的学习 C++ 是在 20 年的 3 月，现在已经是 22 年的 12
+月了，差不多快三年的时间，中间来回读了几遍的 <em>C++ Primer</em> 及
+<em>Effective C++</em>，Leetcode 上用 C++ 写的题目也有 500
+多道，回想过去的时光，不敢说是精通 C++，但也算是有所熟悉，对于 C++
+这门语言也有不少牢骚，干脆就记录一下</p>
+<p>我帮各位回顾一下 C++ 的发展历程</p>
 <blockquote>
-<p>注：新 MySQL 的存储引擎默认是 InnoDB</p>
+<p>C++ 是由 Bjarne Stroustrup 于 1979
+年在贝尔实验室开发的一种编程语言。当时，Stroustrup 正在研究一种名为
+Simula 67 的面向对象编程语言。他发现 Simula 67
+虽然优秀，但由于它的运行速度较慢，并不适合于开发大型系统。因此，他开始着手设计一种新的编程语言，该语言能够兼具
+Simula 67 的面向对象特性和 C 语言的运行速度。<br />
+C++ 的最初版本被称为 “C with Classes”。它于 1983
+年正式推出，并在接下来的几年里经历了许多修改和更新。1985 年，C++
+正式更名为 C++，并于 1989 年推出了最终版本——C++ 2.0。<br />
+C++
+在推出后迅速流行起来，并成为许多大型系统的首选开发语言。它的优秀性能和灵活的语法使它成为许多领域的标准编程语言，例如游戏开发、操作系统开发、网络编程等。<br />
+随着时间的推移，C++ 也不断演进和发展。例如，1998 年推出了 C++98
+标准，2003 年推出了 C++03 标准，2011 年推出了 C++11
+标准，并在接下来的几年中又推出了 C++14 和 C++17 等</p>
 </blockquote>
-<p>以下内容来自 <a
-target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1zr4y1x7o7/?spm_id_from=pageDriver&amp;vd_source=792f3008384e88bd777ae4c2be9b658b">bilibili
-视频笔记</a></p>
-<p>MySQL中常用的四种存储引擎分别是：
-MyISAM、InnoDB、MEMORY、ARCHIVE。MySQL
-5.5版本后默认的存储引擎为InnoDB。</p>
-<h3 id="innodb-存储引擎">InnoDB 存储引擎</h3>
-<p>InnoDB 是 MySQL
-默认的事务型存储引擎，使用最广泛，基于聚簇索引建立的。InnoDB
-内部做了很多优化，如能够自动在内存中创建自适应 hash
-索引，以加速读操作。</p>
-<p>优点：支持事务和崩溃修复能力；引入了行级锁和外键约束。</p>
-<p>缺点：占用的数据空间相对较大。</p>
-<p>适用场景：需要事务支持，并且有较高的并发读写频率。</p>
-<h3 id="myisam存储引擎">MyISAM存储引擎</h3>
-<p>数据以紧密格式存储。对于只读数据，或者表比较小、可以容忍修复操作，可以使用
-MyISAM 引擎。MyISAM 会将表存储在两个文件中，数据文件 .MYD 和索引文件
-.MYI。</p>
-<p>优点：访问速度快。</p>
-<p>缺点：MyISAM
-不支持事务和行级锁，不支持崩溃后的安全恢复，也不支持外键。</p>
-<p>适用场景：对事务完整性没有要求；表的数据都会只读的。</p>
-<h3 id="memory-存储引擎">MEMORY 存储引擎</h3>
-<p>MEMORY
-引擎将数据全部放在内存中，访问速度较快，但是一旦系统奔溃的话，数据都会丢失。</p>
-<p>MEMORY
-引擎默认使用哈希索引，将键的哈希值和指向数据行的指针保存在哈希索引中。</p>
-<p>优点：访问速度较快。</p>
-<p>缺点：</p>
-<p>哈希索引数据不是按照索引值顺序存储，无法用于排序。
-不支持部分索引匹配查找，因为哈希索引是使用索引列的全部内容来计算哈希值的。
-只支持等值比较，不支持范围查询。
-当出现哈希冲突时，存储引擎需要遍历链表中所有的行指针，逐行进行比较，直到找到符合条件的行。</p>
-<h3 id="archive-存储引擎">ARCHIVE 存储引擎</h3>
-<p>ARCHIVE 存储引擎非常适合存储大量独立的、作为历史记录的数据。ARCHIVE
-提供了压缩功能，拥有高效的插入速度，但是这种引擎不支持索引，所以查询性能较差。</p>
-<h2 id="参考">参考</h2>
-<p><a
-target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020383024">存储引擎对比</a></p>
-<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000012588602">MySQL -
-常见的三种存储引擎</a></p>
+<p>详细可见 <a
+target="_blank" rel="noopener" href="https://zh.m.wikipedia.org/zh-sg/C%2B%2B">wiki</a></p>
+<p>可以说已经有了 40 多年的历史了，同一个历史舞台的很多语言都没落了，但
+C++
+仍然流行，在浏览器，游戏，操作系统等对性能要求较高的领域，都能看见它的身影，这当然要得益于其与时俱进的标准，能够吸收很多优秀的特性，如：模板，异常处理，自动类型推导，还引入了方便的
+STL 库，可谓是算法党的福音</p>
+<p>C++ 又可以认为是 C 语言的超集，除了某些方面，如：</p>
+<blockquote>
+<p>最常见的差异之一是，C 允许从 void* 隐式转换到其它的指标类型，但 C++
+不允许。</p>
+</blockquote>
+<p>C++ 的效率上差约 5% 多一些</p>
+<p>但是 40 多年的历史新特性不断增增改改，再加上其继承于 C 语言又拥有 C
+语言的很多特性，在拥有很强兼容性的同时，又让 C++
+变成了一个<strong>怪物语言</strong></p>
+<p>参差不齐的输出方式</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// C</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello World!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"Hello World!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// C++</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Hello World!\n"</span><span class="token punctuation">;</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Hello World!"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span> <span class="token comment">// 清空缓冲区</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>C++ 拥有复杂的输出方式，甚至不同的输出方式混用也会出现问题
+熟悉算法竞赛的一定知道
+<code>ios_base::sync_with_stdio(false); cin.tie(NULL);</code></p>
+<p>第一个语句将 stdio 与 iostream 的缓冲区同步设置为关，默认是开的</p>
+<p>如果为开，C 风格的 IO 和 C++ 风格的 IO 就可以一起用了，但是缺点在与
+C++ 风格的 IO 会变得慢</p>
+<p>所以我们设置为 <code>false</code>，这样能够加快 C++ 风格 IO
+的速度</p>
+<p>缺点在于混用 stdio 和 iostream IO
+的先后顺序没有同步缓冲区的保护，可能出现异常</p>
+<p>所以如果你只使用 C++ 的 IO，建议使用
+<code>ios_base::sync_with_stdio(false);</code> 来加快程序运行的速度</p>
+<p><code>cin.tie(NULL);</code> 则将 cin 与 cout 解耦，通常 cin
+前都要刷新缓冲区，即 <code>cout &lt;&lt; flush;</code>，导致效率很低</p>
+<p>当然解耦后，如</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">cout <span class="token operator">&lt;&lt;</span> <span class="token string">"input your name: "</span><span class="token punctuation">;</span>
+string name<span class="token punctuation">;</span>
+cin <span class="token operator">>></span> name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>在屏幕上可能不会正常工作，可能先输入才有输出。</p>
+<p>不过在算法竞赛中，检验结果看的是 stdout 这个文件描述符</p>
+<!-- 输入方面，我们一般使用 `cin` 而不是 `scanf`，因为后者需要格式化输入字符串，很麻烦 -->
+<!-- 输出方面，使用 `printf` 而不是 `cout`，后者不可以格式化字符串很麻烦 -->
+<p>说起 IO，就不得不吐槽下 C++ 反人类的 cout，格式化字符串直到 C++20
+才得到解决，但这个标准还不知道要多少年才能成为主流</p>
+<p>e.g.</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span> <span class="token operator">%</span>a<span class="token punctuation">,</span> <span class="token operator">%</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// hard</span>
+cin <span class="token operator">>></span> a <span class="token operator">>></span> b<span class="token punctuation">;</span> <span class="token comment">// easy</span>
+
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"result: %d+%d=%d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> a<span class="token operator">+</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// easy</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token string">"result: "</span> <span class="token operator">&lt;&lt;</span> a <span class="token operator">&lt;&lt;</span> <span class="token string">"+"</span> <span class="token operator">&lt;&lt;</span> b <span class="token operator">&lt;&lt;</span> <span class="token string">"="</span> <span class="token operator">&lt;&lt;</span> a<span class="token operator">+</span>b <span class="token operator">&lt;&lt;</span> <span class="token string">"\n"</span><span class="token punctuation">;</span> <span class="token comment">// hard</span>
+cout <span class="token operator">&lt;&lt;</span> <span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"result: &#123;&#125;+&#123;&#125;=&#123;&#125;\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> a<span class="token operator">+</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>即便有了 format，相比较其他语言依然不够方便</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">a<span class="token punctuation">,</span> b<span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f'result: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>a<span class="token punctuation">&#125;</span></span><span class="token string">+</span><span class="token interpolation"><span class="token punctuation">&#123;</span>b<span class="token punctuation">&#125;</span></span><span class="token string">=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>a<span class="token operator">+</span>b<span class="token punctuation">&#125;</span></span><span class="token string">'</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-swift" data-language="swift"><code class="language-swift"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">5</span>
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">"result: </span><span class="token interpolation-punctuation punctuation">\(</span><span class="token interpolation">a</span><span class="token interpolation-punctuation punctuation">)</span><span class="token string">+</span><span class="token interpolation-punctuation punctuation">\(</span><span class="token interpolation">b</span><span class="token interpolation-punctuation punctuation">)</span><span class="token string">=</span><span class="token interpolation-punctuation punctuation">\(</span><span class="token interpolation">a<span class="token operator">+</span>b</span><span class="token interpolation-punctuation punctuation">)</span><span class="token string">"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>在其他设计方面，如非要在每句结尾加
+<code>;</code>，本来是设计上就可以避免的事</p>
+<p>C++
+还有很多问题是由于太自由引起的，它给予程序员的自由度太高了，不同水准的程序员写出的代码质量天差地别，而其他语言，如
+Java 就没有这种问题</p>
+<p>最典型的例子，莫过于指针，C++
+把动态内存分配的权利交给了程序员，这让我们能够更好的利用内存，但给程序员带来了很大的挑战，一不小心就会导致程序崩溃，而在指针中我们总会遇到各种各样的问题</p>
+<p>以下的各种指针你能认识哪些</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token operator">*</span>p1<span class="token punctuation">;</span> <span class="token comment">// 是一个指向整型的指针。它可以指向任何整型变量。</span>
+<span class="token keyword">const</span> <span class="token keyword">int</span> <span class="token operator">*</span>p2<span class="token punctuation">;</span> <span class="token comment">// 是一个指向常整型的指针。它可以指向任何常整型变量，但不能通过这个指针去更改它所指向的变量。</span>
+<span class="token keyword">int</span> <span class="token keyword">const</span> <span class="token operator">*</span>p3<span class="token punctuation">;</span> <span class="token comment">// 是一个指向常整型的指针。这与 const int *p2 是等价的，它可以指向任何常整型变量，但不能通过这个指针去更改它所指向的变量。</span>
+<span class="token keyword">int</span> <span class="token operator">*</span> <span class="token keyword">const</span> p4<span class="token punctuation">;</span> <span class="token comment">// 是一个常指针。它指向一个整型变量，并且不能更改它所指向的变量。</span>
+<span class="token keyword">const</span> <span class="token keyword">int</span> <span class="token operator">*</span> <span class="token keyword">const</span> p5<span class="token punctuation">;</span> <span class="token comment">// 是一个常指针，指向一个常整型变量。它不能更改它所指向的变量。</span>
+
+<span class="token keyword">int</span> <span class="token operator">*</span>p6<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// 是一个整型指针数组。它有 10 个元素，每个元素都是一个指向整型的指针。</span>
+<span class="token keyword">int</span> <span class="token punctuation">(</span><span class="token operator">*</span>p7<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// 是一个指向包含 10 个整型元素的数组的指针。</span>
+
+<span class="token keyword">void</span> <span class="token punctuation">(</span><span class="token operator">*</span>func<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword">double</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 是一个指向函数的指针。这个函数接受两个参数：一个指向整型的指针和一个指向浮点型的指针。它没有返回值，因为它的返回值类型是 void。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>当然 C++ 的引用也能够缓解指针存在的问题，但无疑增加了学习成本</p>
+<p>而很多语言都存在的垃圾回收机制，C++ 直到 C++11
+才引入了智能指针的库（auto_ptr
+那种不算），库出的太晚，且并没有作为特性而存在</p>
+<p>并且支持 new 和 make_shared 两种方法赋值，只推荐后一种</p>
+<p>C++ 为了极致的性能，在 C++11 又提出了移动语义这种复杂的概念</p>
+<p>再深入还有元编程这座大山，C++ 论复杂说第二，真没有语言敢称第一</p>
+<p>再谈面向对象的方面，C++ 有着复杂的多继承</p>
+<p>对比之下，Swift 使用单继承，但可以遵循多个协议</p>
+<p>若要细细对比 C++ 和 Swift，可以看出 Swift 作为一个新兴的语言修改了
+C++ 很多使用不舒服的痛点</p>
+<ol type="1">
+<li>牺牲了自由性，带来了非常强大的编译前运行检查</li>
+<li>使用垃圾回收机制避免了复杂的内存管理</li>
+<li>去除了分号，但同时也在同一行有多个语句时也可以用分号，如：<code>var a=3; a=5</code></li>
+<li>引入了可选值，当没有结果时返回 nil，而 C++ 通常我们可能会通过返回
+-1，nullptr 的方式解决</li>
+<li>去除了繁琐的头文件机制，同一个项目不需要头文件也可直接导入（通过新的访问控制状态
+internal 实现），不同项目使用 import 导入，语法上也比 C++ 简单</li>
+<li>方便的范围控制，如 <code>for i in 0...3</code> 代表 [0,3],
+<code>0..&lt;3</code> 代表 [0,3)</li>
+<li><code>for (index, num) in nums.enumerated()</code>
+能够同时获取索引及相关值</li>
+<li>方便的元组解包，<code>let (a, b) = (2, 3)</code>，而 C++ 既存在 pair
+又存在 tuple，语法上存在很大冗余，也很丑陋</li>
+<li>if 后必须加 {}，统一了风格</li>
+<li>if，while 后省略了无意义的 ()，使得语法更加简洁</li>
+</ol>
+<p>C++ 这门语言学的越多，越发现这门语言包袱之重，兼容 C 及 40
+年来的各种标准的整改，让这门语言拥有了更多的特性，让其很“自由”，代价就是写起来有各种的实现方法，可能导致各种问题，很多问题难以定位，更别提修改了</p>
+<p>但尽管 C++ 有着各种问题，人们却不得不用它，一方面过去的很多项目都是
+C++ 开发的，再使用别的语言重新开发代价太大，另一方面 C++
+的性能仍然首屈一指，很多高性能要求领域还是得用</p>
+<p>目前看来指望标准组丢弃历史包袱是不现实的，只能等待一门新兴的语言慢慢取代
+C++ 在各方面的地位</p>
 
                 
             </div>
@@ -610,7 +544,7 @@ target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020383024
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://cs-moushuai.github.io/posts/shu-ju-ku-cun-chu-yin-qing-dui-bi/">https://cs-moushuai.github.io/posts/shu-ju-ku-cun-chu-yin-qing-dui-bi/</a>
+                    <a href="https://cs-moushuai.github.io/posts/dui-yu-c-zhe-men-yu-yan-de-yi-dian-si-kao/">https://cs-moushuai.github.io/posts/dui-yu-c-zhe-men-yu-yan-de-yi-dian-si-kao/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -648,8 +582,8 @@ target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020383024
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">
-                                    <span class="chip bg-color">存储引擎</span>
+                                <a href="/tags/C/">
+                                    <span class="chip bg-color">C++</span>
                                 </a>
                             
                         </div>
@@ -727,7 +661,7 @@ target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020383024
         repo: 'cs-moushuai.github.io',
         owner: 'cs-moushuai',
         admin: "cs-moushuai",
-        id: '2022-09-07T07-08-30',
+        id: '2022-12-10T07-48-29',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -757,17 +691,17 @@ target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020383024
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/posts/shu-ju-ku-shi-wu-guan-li-xiang-jie/">
+                <a href="/posts/dui-yu-c-zhe-men-yu-yan-de-yi-dian-si-kao/">
                     <div class="card-image">
                         
+                        <img src="https://s1.ax1x.com/2022/12/11/zhAgUA.jpg" class="responsive-img" alt="对于 C++ 这门语言的一点思考">
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="数据库事务管理详解">
-                        
-                        <span class="card-title">数据库事务管理详解</span>
+                        <span class="card-title">对于 C++ 这门语言的一点思考</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -777,30 +711,27 @@ target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020383024
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-09-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-10
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Database/" class="post-category">
-                                    Database
+                            <a href="/categories/C-%E4%BF%AE%E7%82%BC%E4%B9%8B%E8%B7%AF/" class="post-category">
+                                    C++ 修炼之路
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86/">
-                        <span class="chip bg-color">事务处理</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/">
-                        <span class="chip bg-color">隔离级别</span>
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
                     </a>
                     
                 </div>
@@ -814,13 +745,13 @@ target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020383024
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/shu-ju-ku-suo-yin-xiang-jie/">
+                <a href="/posts/get-vs-post/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="数据库索引详解">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="GET vs POST">
                         
-                        <span class="card-title">数据库索引详解</span>
+                        <span class="card-title">GET vs POST</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -831,14 +762,14 @@ target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020383024
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-21
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Database/" class="post-category">
-                                    Database
+                            <a href="/categories/Network/" class="post-category">
+                                    Network
                                 </a>
                             
                             
@@ -848,8 +779,16 @@ target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020383024
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%B4%A2%E5%BC%95/">
-                        <span class="chip bg-color">索引</span>
+                    <a href="/tags/GET/">
+                        <span class="chip bg-color">GET</span>
+                    </a>
+                    
+                    <a href="/tags/POST/">
+                        <span class="chip bg-color">POST</span>
+                    </a>
+                    
+                    <a href="/tags/HTTP/">
+                        <span class="chip bg-color">HTTP</span>
                     </a>
                     
                 </div>
